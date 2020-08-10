@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { getGameList } from '../controllers/gameList.controller'
+import * as gameList from '../controllers/gameList.controller'
 export const gameListRouter: Router = Router();
 
-gameListRouter.get('/', getGameList )
+gameListRouter.get('/', gameList.getGameList)
+gameListRouter.get('/content', gameList.gmaeGameContent)

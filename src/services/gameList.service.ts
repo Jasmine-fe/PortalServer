@@ -1,31 +1,37 @@
-import { getManager, Repository } from 'typeorm';
+import { getManager, Repository, Any } from 'typeorm';
 import { GameList } from '../entities/GameList';
+import { Provider } from '../entities/Provider';
 
 export class GameListService {
 
   gameListRepository: Repository<GameList>;
+  providerRepository: Repository<Provider>;
 
   constructor() {
     this.gameListRepository = getManager().getRepository(GameList);
+    this.providerRepository = getManager().getRepository(Provider);
   }
 
   /**
-   * Returns array of all games from db
+   * Returns array of all games from gameList table
    */
-  async getAllGameList(): Promise<GameList[]> {
-    const req =  await this.gameListRepository.find();
-    return req;
+  async getAllGameList(req): Promise<GameList[]> {
+    const res =  await this.gameListRepository.find();
+    return res;
   }
 
   /**
-   * Returns a user by given id
+   * Returns game content by providerId
    */
-//   async getById(id: string | number): Promise<User> {
-//     this.logger.info('Fetching user by id: ', id);
-//     if (id) {
-//       return await this.gameListRepository.findOne(id);
-//     }
-//     return Promise.reject(false);
-//   }
+  async getGameContent(req): Promise<any> {
+    const gameId = req.query.gameId
+    const providerId = req.query.providerId
+    if (gameId) {
+      const game = await this.gameListRepository.findOne(gameId);
+      const provider = await this.providerRepository.findOne(providerId);
+      return { game: game, provider: provider };
+    }
+    return Promise.reject(false);
+  }
   
 }

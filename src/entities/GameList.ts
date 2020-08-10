@@ -14,7 +14,7 @@ export class GameList {
   @Column("varchar", { name: "descp", nullable: true, length: 200 })
   descp: string | null;
 
-  @Column("int", { name: "providerID", nullable: true, unsigned: true })
+  @Column("int", { name: "providerId", nullable: true, unsigned: true })
   providerId: number | null;
 
   @Column("datetime", { name: "LastUpdateTime", nullable: true })
