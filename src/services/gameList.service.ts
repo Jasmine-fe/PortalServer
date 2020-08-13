@@ -27,8 +27,8 @@ export class GameListService {
     const gameId = req.query.gameId
     const providerId = req.query.providerId
     if (gameId) {
-      const game = await this.gameListRepository.findOne(gameId);
-      const provider = await this.providerRepository.findOne(providerId);
+      const game = await this.gameListRepository.findOne({gameId: gameId});
+      const provider = await this.providerRepository.findOne({providerId: providerId});
       return { game: game, provider: provider };
     }
     return Promise.reject(false);

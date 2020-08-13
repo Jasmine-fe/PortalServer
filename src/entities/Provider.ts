@@ -13,4 +13,7 @@ export class Provider {
 
   @Column("varchar", { name: "companyLoc", nullable: true, length: 30 })
   companyLoc: string | null;
+
+  @Column("varchar", { name: "providerId", nullable: true, length: 3 })
+  providerId: string | null;
 }

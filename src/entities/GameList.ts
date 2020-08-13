@@ -14,9 +14,12 @@ export class GameList {
   @Column("varchar", { name: "descp", nullable: true, length: 200 })
   descp: string | null;
 
-  @Column("int", { name: "providerId", nullable: true, unsigned: true })
-  providerId: number | null;
+  @Column("varchar", { name: "providerId", nullable: true, length: 3 })
+  providerId: string | null;
 
   @Column("datetime", { name: "LastUpdateTime", nullable: true })
   lastUpdateTime: Date | null;
+
+  @Column("varchar", { name: "gameId", nullable: true, length: 3 })
+  gameId: string | null;
 }

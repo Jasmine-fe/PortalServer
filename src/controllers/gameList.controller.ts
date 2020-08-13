@@ -1,11 +1,10 @@
 import { Request, Response ,NextFunction, Router } from 'express';
 import { GameListService } from '../services/gameList.service';
-import * as HttpStatus from 'http-status-codes';
 import { ApiResponseError } from '../interfaces/ApiResponseError';
+import * as HttpStatus from 'http-status-codes';
 
 
 export const getGameList = async (req: Request, res: Response, next: NextFunction) => {
-  console.log("gameListRouter get in controoler")
   const gameListService = new GameListService();
   try {
     const gameList = await gameListService.getAllGameList(req)
@@ -27,3 +26,4 @@ export const getGameList = async (req: Request, res: Response, next: NextFunctio
       return next(error);
     }
   }
+
