@@ -8,6 +8,7 @@ import * as WebSocket from 'ws';
 import * as http from 'http';
 import { connectDB } from './database'
 import { router } from './routes/index';
+import { getGameServerIp } from './services/connect.service';
 
 const app = express();
 
@@ -34,17 +35,26 @@ const port: Number = Number(process.env.PORT) || 3000;
 const startServer = async () => {
   await server.listen(port, () => {
     
-    wss.on('connection', function connection(ws) {
-      ws.on('message', function incoming(message) {
+
+    // websocket
+    wss.on('connection',  function connection(ws) {
+      ws.on('message', async function incoming(message) {
         console.log('received: %s', message);
+
+        // send IP address
+        const gameServer = await getGameServerIp();
+        console.log("gameServer",gameServer)
+        if(gameServer) {
+          
+            ws.send(`${gameServer["ip"]}`);  
+        } else {
+            ws.send(null);
+        }
       });
-     // send IP address
-      ws.send("'127.0.0.1'");
+      ws.send("hello websocket server");
     });
 
-    console.log(`
-        Server running on http://localhost:${port}
-    `);
+    console.log(` Server running on http://localhost:${port}`);
   });
 };
 
