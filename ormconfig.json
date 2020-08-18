@@ -1,0 +1,11 @@
+{
+    "type": "mysql",
+    "host": "compalgame.cvtg5m1xenqd.us-east-1.rds.amazonaws.com",
+    "username": "applecatcar",
+    "password": "redorange",
+    "port": "3306",
+    "database": "gamedb",
+    "entities": [
+        "./src/entities/*.ts"
+    ]
+}
