@@ -5,6 +5,7 @@
     "password": "redorange",
     "port": "3306",
     "database": "gamedb",
+    "connectTimeout": 15000,
     "entities": [
         "./src/entities/*.ts"
     ]
