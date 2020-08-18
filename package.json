@@ -8,7 +8,7 @@
     "start": "node ./dist/index.js",
     "start:dev": "nodemon",
     "build": "tsc",
-    "db": "rm -rf ./src/entities & npx typeorm-model-generator -h localhost -d Compal -p 3306 -u root -x 1234 -e mysql -o ./src/entities --noConfig true --ce pascal --cp camel"
+    "db": "rm -rf ./src/entities & npx typeorm-model-generator -h compalgame.cvtg5m1xenqd.us-east-1.rds.amazonaws.com -d gamedb -p 3306 -u applecatcar -x redorange -e mysql -o ./src/entities --noConfig true --ce pascal --cp camel"
   },
   "dependencies": {
     "cookie-parser": "^1.4.5",

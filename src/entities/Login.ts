@@ -1,13 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
 
-@Entity("Login", { schema: "compal" })
+@Entity("Login", { schema: "gamedb" })
 export class Login {
-  @PrimaryGeneratedColumn({ type: "int", name: "id", unsigned: true })
+  @Column("int", { primary: true, name: "id" })
   id: number;
 
-  @Column("varchar", { name: "username", nullable: true, length: 11 })
+  @Column("text", { name: "username", nullable: true })
   username: string | null;
 
-  @Column("timestamp", { name: "loginTime", nullable: true })
-  loginTime: Date | null;
+  @Column("text", { name: "loginTime", nullable: true })
+  loginTime: string | null;
 }

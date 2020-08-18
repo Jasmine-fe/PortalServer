@@ -45,7 +45,7 @@ export class GameListService {
     .into(GameServerIp)
     .values([{
       ip: serverIp,
-      lastUpdateTime: new Date(),
+      lastUpdateTime: new Date()+"",
       status: status
     }])
     .execute()

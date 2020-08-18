@@ -1,25 +1,25 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
 
-@Entity("GameList", { schema: "compal" })
+@Entity("GameList", { schema: "gamedb" })
 export class GameList {
-  @PrimaryGeneratedColumn({ type: "int", name: "id", unsigned: true })
+  @Column("int", { primary: true, name: "id" })
   id: number;
 
-  @Column("varchar", { name: "name", nullable: true, length: 20 })
+  @Column("text", { name: "name", nullable: true })
   name: string | null;
 
-  @Column("varchar", { name: "imageURL", nullable: true, length: 200 })
+  @Column("text", { name: "imageURL", nullable: true })
   imageUrl: string | null;
 
-  @Column("varchar", { name: "descp", nullable: true, length: 200 })
+  @Column("text", { name: "descp", nullable: true })
   descp: string | null;
 
-  @Column("varchar", { name: "providerId", nullable: true, length: 3 })
+  @Column("text", { name: "providerId", nullable: true })
   providerId: string | null;
 
-  @Column("datetime", { name: "LastUpdateTime", nullable: true })
-  lastUpdateTime: Date | null;
+  @Column("text", { name: "LastUpdateTime", nullable: true })
+  lastUpdateTime: string | null;
 
-  @Column("varchar", { name: "gameId", nullable: true, length: 3 })
+  @Column("text", { name: "gameId", nullable: true })
   gameId: string | null;
 }

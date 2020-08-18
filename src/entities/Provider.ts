@@ -1,19 +1,19 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
 
-@Entity("Provider", { schema: "compal" })
+@Entity("Provider", { schema: "gamedb" })
 export class Provider {
-  @PrimaryGeneratedColumn({ type: "int", name: "id", unsigned: true })
+  @Column("int", { primary: true, name: "id" })
   id: number;
 
-  @Column("varchar", { name: "companyName", nullable: true, length: 20 })
+  @Column("text", { name: "companyName", nullable: true })
   companyName: string | null;
 
-  @Column("varchar", { name: "companyTel", nullable: true, length: 20 })
+  @Column("text", { name: "companyTel", nullable: true })
   companyTel: string | null;
 
-  @Column("varchar", { name: "companyLoc", nullable: true, length: 30 })
+  @Column("text", { name: "companyLoc", nullable: true })
   companyLoc: string | null;
 
-  @Column("varchar", { name: "providerId", nullable: true, length: 3 })
+  @Column("text", { name: "providerId", nullable: true })
   providerId: string | null;
 }

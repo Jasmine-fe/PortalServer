@@ -1,16 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
 
-@Entity("GameServerIP", { schema: "compal" })
+@Entity("GameServerIP", { schema: "gamedb" })
 export class GameServerIp {
-  @PrimaryGeneratedColumn({ type: "int", name: "id", unsigned: true })
+  @Column("int", { primary: true, name: "id" })
   id: number;
 
-  @Column("varchar", { name: "ip", nullable: true, length: 11 })
+  @Column("text", { name: "ip", nullable: true })
   ip: string | null;
 
-  @Column("timestamp", { name: "lastUpdateTime", nullable: true })
-  lastUpdateTime: Date | null;
+  @Column("text", { name: "lastUpdateTime", nullable: true })
+  lastUpdateTime: string | null;
 
-  @Column("int", { name: "status", nullable: true })
-  status: number | null;
+  @Column("text", { name: "status", nullable: true })
+  status: string | null;
 }
