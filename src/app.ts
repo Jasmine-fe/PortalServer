@@ -12,7 +12,7 @@ import { connectDB } from './database'
 import { router } from './routes/index';
 import { getGameServerIp } from './services/connect.service';
 import { uploadImgFile, sendImgFile } from './controllers/provider.controller'; 
-
+import  { router as swaggerRouter }  from './swagger';
 express.Router().use(cors({origin: '*'}))
 
 const app = express();
@@ -21,16 +21,9 @@ const app = express();
 // app.use(express.static(__dirname + '/uploads'));
 
 // deal with image file
-const upload = multer({ dest: './src/uploads' })
-app.post('/provider', upload.single('image'), uploadImgFile)
-app.get('/provider', sendImgFile)
-
-
-
-
-
-
-
+// const upload = multer({ dest: './src/uploads' })
+// app.post('/provider', upload.single('image'), uploadImgFile)
+// app.get('/provider', sendImgFile)
 
 
 // view engine setup
@@ -45,6 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', router);
+app.use('/api/docs', swaggerRouter);
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
