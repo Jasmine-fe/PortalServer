@@ -22,4 +22,7 @@ export class GameList {
 
   @Column("text", { name: "gameId", nullable: true })
   gameId: string | null;
+
+  @Column("varchar", { name: "configFile", nullable: true, length: 45 })
+  configFile: string | null;
 }
