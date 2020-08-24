@@ -30,7 +30,7 @@ import { GameServerIp } from '../entities/GameServerIp';
  *       gameId:
  *          type: string
  *          description: gameId
- *      configFile:
+ *       configFile:
  *          type: string
  *          description: configFile
  *   Provider:
