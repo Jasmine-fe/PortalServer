@@ -12,7 +12,6 @@ import { connectDB } from './database'
 import { router } from './routes/index';
 import { getGameServerIp } from './services/connect.service';
 import { uploadImgFile, sendImgFile } from './controllers/provider.controller'; 
-import * as muilter from './multerUtil'
 
 express.Router().use(cors({origin: '*'}))
 

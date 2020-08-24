@@ -1,7 +1,6 @@
 import { Request, Response ,NextFunction, Router } from 'express';
 import { ProviderService } from '../services/provider.service';
 import { ApiResponseError } from '../interfaces/ApiResponseError';
-import * as multerUtil from '../multerUtil'
 import * as HttpStatus from 'http-status-codes';
 
 export const uploadImgFile = async (req: any, res: Response, next: NextFunction) => {
