@@ -6,11 +6,33 @@ import * as path from 'path';
 import * as cookieParser from 'cookie-parser';
 import * as WebSocket from 'ws';
 import * as http from 'http';
+import * as multer from 'multer';
+import * as cors from 'cors';
 import { connectDB } from './database'
 import { router } from './routes/index';
 import { getGameServerIp } from './services/connect.service';
+import { uploadImgFile, sendImgFile } from './controllers/provider.controller'; 
+import * as muilter from './multerUtil'
+
+express.Router().use(cors({origin: '*'}))
 
 const app = express();
+
+// send file response
+// app.use(express.static(__dirname + '/uploads'));
+
+// deal with image file
+const upload = multer({ dest: './src/uploads' })
+app.post('/provider', upload.single('image'), uploadImgFile)
+app.get('/provider', sendImgFile)
+
+
+
+
+
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
