@@ -4,7 +4,6 @@ import * as swaggerJSDoc from 'swagger-jsdoc';
 
 export var router = express.Router();
 
-
 // swagger
 const options = {
     swaggerDefinition: {
@@ -20,10 +19,11 @@ const options = {
             },
         ],
         schemes: ['http'],
-        host: '54.146.78.28:3000',
-        basePath: '/game',
+        host: 'localhost:3000',
+        basePath: '/',
     },
-    apis: ['./controllers/gameList.controller.ts'],
+    apis: ['src/services/gameList.service.ts'],
+    
 };
 const swaggerSpec = swaggerJSDoc(options);
 router.get('/json', function (req, res) {

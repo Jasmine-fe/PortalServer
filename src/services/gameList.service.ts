@@ -3,8 +3,54 @@ import { GameList } from '../entities/GameList';
 import { Provider } from '../entities/Provider';
 import { GameServerIp } from '../entities/GameServerIp';
 
-export class GameListService {
+/**
+ * @swagger
+ * definitions:
+ *   GameList:
+ *     type: object
+ *     properties:
+ *       id: 
+ *          type: number
+ *          description: id
+ *       name: 
+ *          type: string
+ *          description: name
+ *       imageUrl:
+ *          type: string
+ *          description: imageUrl
+ *       descp: 
+ *          type: string
+ *          description: descp
+ *       providerId: 
+ *          type: string
+ *          description: providerId
+ *       lastUpdateTime:
+ *          type: string
+ *          description: lastUpdateTime
+ *       gameId:
+ *          type: string
+ *          description: gameId
+ *   Provider:
+ *     type: object
+ *     properties:
+ *       id: 
+ *          type: number
+ *          description: id
+ *       companyName: 
+ *          type: string
+ *          description: companyName
+ *       companyTel:
+ *          type: string
+ *          description: companyTel
+ *       companyLoc: 
+ *          type: string
+ *          description: companyLoc
+ *       providerId: 
+ *          type: string
+ *          description: providerId
+ */
 
+export class GameListService {
   gameListRepository: Repository<GameList>;
   providerRepository: Repository<Provider>;
   gameServerIp: Repository<GameServerIp>;
@@ -15,17 +61,63 @@ export class GameListService {
     this.gameServerIp = getManager().getRepository(GameServerIp)
   }
 
-  /**
-   * Returns array of all games from gameList table
-   */
+/**
+ * @swagger
+ * /game/list:
+ *   get:
+ *     description: get game list
+ *     tags:
+ *       - game
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: successfully return all available game list
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/GameList'
+ */
   async getAllGameList(req): Promise<GameList[]> {
     const res =  await this.gameListRepository.find();
     return res;
   }
 
-  /**
-   * Returns game content by providerId
-   */
+
+/**
+ * @swagger
+ * /game/content:
+ *   get:
+ *     description: get one game detail
+ *     tags:
+ *       - game
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: query
+ *         name: providerId
+ *         required: true
+ *         type: string
+ *       - in: query
+ *         name: gameId
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: successfully return one game content
+ *         schema:
+ *           type: object
+ *           properties:
+ *             game: 
+ *               type: object
+ *               $ref: '#/definitions/GameList'
+ *             provider:
+ *               type: object
+ *               $ref: '#/definitions/Provider'
+ */
   async getGameContent(req): Promise<any> {
     const gameId = req.query.gameId
     const providerId = req.query.providerId
