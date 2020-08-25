@@ -46,29 +46,10 @@ const wss = new WebSocket.Server({ server });
 
 
 // startServer log
-const port: Number = Number(process.env.PORT) || 3000;
+const port: number = Number(process.env.PORT) || 8080;
+// const hostname: string = "0.0.0.0";
 const startServer = async () => {
   await server.listen(port, () => {
-    
-
-    // websocket
-    wss.on('connection',  function connection(ws) {
-      ws.on('message', async function incoming(message) {
-        console.log('received: %s', message);
-
-        // send IP address
-        const gameServer = await getGameServerIp();
-        console.log("gameServer",gameServer)
-        if(gameServer) {
-          
-            ws.send(`${gameServer["ip"]}`);  
-        } else {
-            ws.send(null);
-        }
-      });
-      ws.send("hello websocket server");
-    });
-
     console.log(` Server running on http://localhost:${port}`);
   });
 };

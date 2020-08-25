@@ -5,8 +5,8 @@
   "main": "app.ts",
   "private": false,
   "scripts": {
-    "start": "node ./dist/index.js",
-    "start:dev": "nodemon",
+    "start:master": "node ./dist/index.js",
+    "start": "nodemon",
     "build": "tsc",
     "db": "rm -rf ./src/entities & npx typeorm-model-generator -h compalgame.cvtg5m1xenqd.us-east-1.rds.amazonaws.com -d gamedb -p 3306 -u applecatcar -x redorange -e mysql -o ./src/entities --noConfig true --ce pascal --cp camel"
   },
