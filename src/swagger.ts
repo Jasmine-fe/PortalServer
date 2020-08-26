@@ -28,6 +28,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 router.get('/json', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
+    console.log("swaggerSpec", swaggerSpec)
     res.send(swaggerSpec);
   });
   

@@ -47,10 +47,10 @@ const wss = new WebSocket.Server({ server });
 
 // startServer log
 const port: number = Number(process.env.PORT) || 8080;
-// const hostname: string = "0.0.0.0";
+const ip: string = "0.0.0.0";
 const startServer = async () => {
-  await server.listen(port, () => {
-    console.log(` Server running on http://localhost:${port}`);
+  await server.listen(port, ip, () => {
+    console.log(` Server running on http://${ip}:${port}`);
   });
 };
 

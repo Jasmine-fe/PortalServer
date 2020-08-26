@@ -30,9 +30,6 @@ export class ProviderService {
         .then(res => {
             console.log("res")
         })
-        .catch((err)=> {
-            console.log("err", err);
-        })
     }
 
     async sendImgFile(req): Promise<any> {
