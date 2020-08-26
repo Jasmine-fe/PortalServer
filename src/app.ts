@@ -46,7 +46,7 @@ const wss = new WebSocket.Server({ server });
 
 
 // startServer log
-const port: number = Number(process.env.PORT) || 8080;
+const port: number = Number(process.env.PORT) || 3000;
 const ip: string = "0.0.0.0";
 const startServer = async () => {
   await server.listen(port, ip, () => {
