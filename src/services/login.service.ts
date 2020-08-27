@@ -1,15 +1,35 @@
 import { getManager, Repository, Any } from 'typeorm';
 import { Login } from '../entities/Login';
 
-/**
-   * check account
-   */
-export const checkLogin = async (req) => {
-    const username = req.body.username;
-    const userInfo = await getManager()
-    .getRepository(Login)
-    .createQueryBuilder("lg")
-    .where("lg.username = username", username )
-    .getOne();
-    return userInfo;
-} 
+
+export class LoginService {
+    loginRepository: Repository<Login>;
+
+    constructor() {
+        this.loginRepository = getManager().getRepository(Login);
+    }
+
+    /**
+       * check account
+    */
+    async checkLogin(req): Promise<any> {
+        const username = req.body.username;
+        if (username) {
+            await getManager()
+                .getRepository(Login)
+                .findOne({ username: username })
+                .then((res: any) => {
+                    console.log("Res", res)
+                    if (res) {
+                        return res;
+                    }
+                    else {
+                        return Promise.reject();
+                    }
+                })
+        }
+        else {
+            return Promise.reject();
+        }
+    }
+}
