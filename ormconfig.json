@@ -1,8 +1,8 @@
 {
     "type": "mysql",
-    "host": "compalgame.cvtg5m1xenqd.us-east-1.rds.amazonaws.com",
-    "username": "applecatcar",
-    "password": "redorange",
+    "host": "192.168.137.183",
+    "username": "kitty",
+    "password": "pink",
     "port": "3306",
     "database": "gamedb",
     "timeout": 15000,
