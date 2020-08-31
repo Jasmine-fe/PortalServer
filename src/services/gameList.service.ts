@@ -133,8 +133,8 @@ export class GameListService {
   }
 
   async recordGameServerIp(req): Promise<any> {
-    const serverIp = req.query.gameServerIp
-    const status = req.query.status
+    const serverIp = req.body.gameServerIp
+    const status = req.body.status
     this.gameServerIp
     .createQueryBuilder("GSI").insert()
     .into(Gameserverip)
