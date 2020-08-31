@@ -2,8 +2,8 @@ import { Column, Entity } from "typeorm";
 
 @Entity("coverimg", { schema: "gamedb" })
 export class Coverimg {
-  @Column("bigint", { name: "idCoverImg", nullable: true })
-  idCoverImg: string | null;
+  @Column("bigint", { primary: true, name: "idCoverImg" })
+  idCoverImg: string;
 
   @Column("text", { name: "type", nullable: true })
   type: string | null;

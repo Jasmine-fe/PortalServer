@@ -2,8 +2,8 @@ import { Column, Entity } from "typeorm";
 
 @Entity("provider", { schema: "gamedb" })
 export class Provider {
-  @Column("int", { name: "id", nullable: true })
-  id: number | null;
+  @Column("int", { primary: true, name: "id" })
+  id: number;
 
   @Column("text", { name: "companyName", nullable: true })
   companyName: string | null;

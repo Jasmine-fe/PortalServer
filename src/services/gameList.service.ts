@@ -1,7 +1,7 @@
 import { getManager, Repository, Any } from 'typeorm';
-import { GameList } from '../entities/GameList';
+import { Gamelist } from '../entities/Gamelist';
 import { Provider } from '../entities/Provider';
-import { GameServerIp } from '../entities/GameServerIp';
+import { Gameserverip } from '../entities/Gameserverip';
 
 /**
  * @swagger
@@ -54,14 +54,14 @@ import { GameServerIp } from '../entities/GameServerIp';
  */
 
 export class GameListService {
-  gameListRepository: Repository<GameList>;
+  gameListRepository: Repository<Gamelist>;
   providerRepository: Repository<Provider>;
-  gameServerIp: Repository<GameServerIp>;
+  gameServerIp: Repository<Gameserverip>;
 
   constructor() {
-    this.gameListRepository = getManager().getRepository(GameList);
+    this.gameListRepository = getManager().getRepository(Gamelist);
     this.providerRepository = getManager().getRepository(Provider);
-    this.gameServerIp = getManager().getRepository(GameServerIp)
+    this.gameServerIp = getManager().getRepository(Gameserverip)
   }
 
 /**
@@ -82,7 +82,7 @@ export class GameListService {
  *           type: object
  *           $ref: '#/definitions/GameList'
  */
-  async getAllGameList(req): Promise<GameList[]> {
+  async getAllGameList(req): Promise<Gamelist[]> {
     const res =  await this.gameListRepository.find();
     return res;
   }
@@ -137,7 +137,7 @@ export class GameListService {
     const status = req.query.status
     this.gameServerIp
     .createQueryBuilder("GSI").insert()
-    .into(GameServerIp)
+    .into(Gameserverip)
     .values([{
       ip: serverIp,
       lastUpdateTime: new Date()+"",
