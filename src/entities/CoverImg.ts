@@ -1,16 +1,16 @@
 import { Column, Entity } from "typeorm";
 
-@Entity("CoverImg", { schema: "gamedb" })
-export class CoverImg {
-  @Column("int", { primary: true, name: "idCoverImg" })
-  idCoverImg: number;
+@Entity("coverimg", { schema: "gamedb" })
+export class Coverimg {
+  @Column("bigint", { name: "idCoverImg", nullable: true })
+  idCoverImg: string | null;
 
-  @Column("varchar", { name: "type", nullable: true, length: 45 })
+  @Column("text", { name: "type", nullable: true })
   type: string | null;
 
-  @Column("varchar", { name: "name", nullable: true, length: 45 })
+  @Column("text", { name: "name", nullable: true })
   name: string | null;
 
-  @Column("longblob", { name: "data", nullable: true })
-  data: Buffer | null;
+  @Column("text", { name: "data", nullable: true })
+  data: string | null;
 }

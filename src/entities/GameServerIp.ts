@@ -1,9 +1,9 @@
 import { Column, Entity } from "typeorm";
 
-@Entity("GameServerIP", { schema: "gamedb" })
-export class GameServerIp {
-  @Column("int", { primary: true, name: "id" })
-  id: number;
+@Entity("gameserverip", { schema: "gamedb" })
+export class Gameserverip {
+  @Column("int", { name: "id", nullable: true })
+  id: number | null;
 
   @Column("text", { name: "ip", nullable: true })
   ip: string | null;

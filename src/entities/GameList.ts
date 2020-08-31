@@ -1,9 +1,9 @@
 import { Column, Entity } from "typeorm";
 
-@Entity("GameList", { schema: "gamedb" })
-export class GameList {
-  @Column("int", { primary: true, name: "id" })
-  id: number;
+@Entity("gamelist", { schema: "gamedb" })
+export class Gamelist {
+  @Column("int", { name: "id", nullable: true })
+  id: number | null;
 
   @Column("text", { name: "name", nullable: true })
   name: string | null;
@@ -23,6 +23,9 @@ export class GameList {
   @Column("text", { name: "gameId", nullable: true })
   gameId: string | null;
 
-  @Column("varchar", { name: "configFile", nullable: true, length: 45 })
+  @Column("text", { name: "configFile", nullable: true })
   configFile: string | null;
+
+  @Column("text", { name: "excutetype", nullable: true })
+  excutetype: string | null;
 }

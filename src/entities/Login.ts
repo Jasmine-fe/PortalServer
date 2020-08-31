@@ -1,13 +1,16 @@
 import { Column, Entity } from "typeorm";
 
-@Entity("Login", { schema: "gamedb" })
+@Entity("login", { schema: "gamedb" })
 export class Login {
-  @Column("int", { primary: true, name: "id" })
-  id: number;
+  @Column("bigint", { primary: true, name: "id" })
+  id: string;
 
-  @Column("text", { name: "username", nullable: true })
+  @Column("varchar", { name: "username", nullable: true, length: 20 })
   username: string | null;
 
   @Column("text", { name: "loginTime", nullable: true })
   loginTime: string | null;
+
+  @Column("varchar", { name: "password", nullable: true, length: 45 })
+  password: string | null;
 }
