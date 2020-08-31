@@ -1,8 +1,8 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("connection", { schema: "gamedb" })
 export class Connection {
-  @Column("int", { primary: true, name: "idconnection" })
+  @PrimaryGeneratedColumn({ type: "int", name: "idconnection" })
   idconnection: number;
 
   @Column("varchar", { name: "username", nullable: true, length: 45 })

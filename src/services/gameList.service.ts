@@ -1,7 +1,7 @@
 import { getManager, Repository, Any } from 'typeorm';
 import { Gamelist } from '../entities/Gamelist';
 import { Provider } from '../entities/Provider';
-import { Gameserverip } from '../entities/Gameserverip';
+import { Connection } from '../entities/Connection';
 
 /**
  * @swagger
@@ -56,12 +56,12 @@ import { Gameserverip } from '../entities/Gameserverip';
 export class GameListService {
   gameListRepository: Repository<Gamelist>;
   providerRepository: Repository<Provider>;
-  gameServerIp: Repository<Gameserverip>;
+  connectionRepository: Repository<Connection>;
 
   constructor() {
     this.gameListRepository = getManager().getRepository(Gamelist);
     this.providerRepository = getManager().getRepository(Provider);
-    this.gameServerIp = getManager().getRepository(Gameserverip)
+    this.connectionRepository = getManager().getRepository(Connection)
   }
 
 /**
@@ -133,15 +133,17 @@ export class GameListService {
   }
 
   async recordGameServerIp(req): Promise<any> {
-    const serverIp = req.body.gameServerIp
-    const status = req.body.status
-    this.gameServerIp
+
+    const { username, gamename, ip, status } = req.body;
+    this.connectionRepository
     .createQueryBuilder("GSI").insert()
-    .into(Gameserverip)
+    .into(Connection)
     .values([{
-      ip: serverIp,
-      lastUpdateTime: new Date()+"",
-      status: status
+      username,
+      gamename,
+      ip,
+      status,
+      lstUpdateTime: new Date()+""
     }])
     .execute()
   }
