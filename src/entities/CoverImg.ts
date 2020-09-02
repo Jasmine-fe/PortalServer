@@ -1,9 +1,9 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("coverimg", { schema: "gamedb" })
 export class Coverimg {
-  @Column("bigint", { primary: true, name: "idCoverImg" })
-  idCoverImg: string;
+  @PrimaryGeneratedColumn({ type: "int", name: "idCoverImg" })
+  idCoverImg: number;
 
   @Column("text", { name: "type", nullable: true })
   type: string | null;
