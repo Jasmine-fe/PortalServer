@@ -6,7 +6,7 @@ import { Gaconnection } from '../entities/Gaconnection';
 /**
  * @swagger
  * definitions:
- *   GameList:
+ *   Gamelist:
  *     type: object
  *     properties:
  *       id: 
@@ -80,7 +80,7 @@ export class GameListService {
  *         description: successfully return all available game list
  *         schema:
  *           type: object
- *           $ref: '#/definitions/GameList'
+ *           $ref: '#/definitions/Gamelist'
  */
   async getAllGameList(req): Promise<Gamelist[]> {
     const res =  await this.gameListRepository.find();
@@ -116,7 +116,7 @@ export class GameListService {
  *           properties:
  *             game: 
  *               type: object
- *               $ref: '#/definitions/GameList'
+ *               $ref: '#/definitions/Gamelist'
  *             provider:
  *               type: object
  *               $ref: '#/definitions/Provider'
@@ -131,21 +131,4 @@ export class GameListService {
     }
     return Promise.reject(false);
   }
-
-  async recordGameServerIp(req): Promise<any> {
-
-    const { username, gamename, ip, status } = req.body;
-    this.connectionRepository
-    .createQueryBuilder("GSI").insert()
-    .into(Gaconnection)
-    .values([{
-      username,
-      gamename,
-      serverIp: ip,
-      status,
-      lstUpdateTime: new Date()+""
-    }])
-    .execute()
-  }
-  
 }

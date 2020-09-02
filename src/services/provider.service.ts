@@ -1,11 +1,11 @@
 import { getManager, Repository, Any } from 'typeorm';
-import { GameList } from '../entities/GameList';
-import { CoverImg } from '../entities/CoverImg';
+import { Gamelist } from '../entities/Gamelist';
+import { Coverimg } from '../entities/Coverimg';
 import * as fs from 'fs-extra';
 
 export class ProviderService {
-    gameListRepository: Repository<GameList>;
-    coverImgRepository: Repository<CoverImg>;
+    gameListRepository: Repository<Gamelist>;
+    coverImgRepository: Repository<Coverimg>;
     constructor() { }
 
     async uploadImgFile(req): Promise<any> {
@@ -19,7 +19,7 @@ export class ProviderService {
 
         this.coverImgRepository
         .createQueryBuilder("CI").insert()
-        .into(CoverImg)
+        .into(Coverimg)
         .values([{
             idCoverImg: 1,
             type,

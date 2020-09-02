@@ -10,7 +10,6 @@ import * as multer from 'multer';
 import * as cors from 'cors';
 import { connectDB } from './database'
 import { router } from './routes/index';
-import { getGameServerIp } from './services/connect.service';
 import { uploadImgFile, sendImgFile } from './controllers/provider.controller'; 
 import  { router as swaggerRouter }  from './swagger';
 express.Router().use(cors({origin: '*'}))

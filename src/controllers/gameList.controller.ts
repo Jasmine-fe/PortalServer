@@ -27,14 +27,3 @@ export const getGameList = async (req: Request, res: Response, next: NextFunctio
     }
   }
 
-  export const recordGameServerIp = async (req: Request, res: Response, next: NextFunction) => {
-    const gameListService = new GameListService();
-    try {
-      const gameContent = await gameListService.recordGameServerIp(req)
-      return res.status(HttpStatus.OK).json({ data: "update success" });
-    } catch (err) {
-      const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
-      return next(error);
-    }
-  }
-

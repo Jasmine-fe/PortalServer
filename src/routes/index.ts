@@ -3,6 +3,7 @@ import * as swaggerJSDoc from 'swagger-jsdoc';
 import { gameListRouter } from './gameRoute'
 import { providerRouter } from './providerRouter'
 import { LoginRouter } from './loginRoute';
+import { connectRouter } from './connectRoute';
 
 var cors = require('cors')
 var express = require('express');
@@ -14,4 +15,6 @@ router.use(cors({origin: '*'}))
 
 router.use('/login', LoginRouter);
 router.use('/game', gameListRouter);
+router.use.get('/connect ', connectRouter)
+
 // router.use('/file', providerRouter);
