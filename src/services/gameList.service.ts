@@ -1,7 +1,7 @@
 import { getManager, Repository, Any } from 'typeorm';
 import { Gamelist } from '../entities/Gamelist';
 import { Provider } from '../entities/Provider';
-import { Connection } from '../entities/Connection';
+import { Gaconnection } from '../entities/Gaconnection';
 
 /**
  * @swagger
@@ -56,12 +56,12 @@ import { Connection } from '../entities/Connection';
 export class GameListService {
   gameListRepository: Repository<Gamelist>;
   providerRepository: Repository<Provider>;
-  connectionRepository: Repository<Connection>;
+  connectionRepository: Repository<Gaconnection>;
 
   constructor() {
     this.gameListRepository = getManager().getRepository(Gamelist);
     this.providerRepository = getManager().getRepository(Provider);
-    this.connectionRepository = getManager().getRepository(Connection)
+    this.connectionRepository = getManager().getRepository(Gaconnection)
   }
 
 /**
@@ -137,11 +137,11 @@ export class GameListService {
     const { username, gamename, ip, status } = req.body;
     this.connectionRepository
     .createQueryBuilder("GSI").insert()
-    .into(Connection)
+    .into(Gaconnection)
     .values([{
       username,
       gamename,
-      ip,
+      serverIp: ip,
       status,
       lstUpdateTime: new Date()+""
     }])
