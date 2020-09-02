@@ -26,6 +26,6 @@ export class Gamelist {
   @Column("text", { name: "configFile", nullable: true })
   configFile: string | null;
 
-  @Column("text", { name: "excutetype", nullable: true })
-  excutetype: string | null;
+  @Column("text", { name: "excuteMode", nullable: true })
+  excuteMode: string | null;
 }

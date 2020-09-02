@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("connection", { schema: "gamedb" })
-export class Connection {
+@Entity("gaconnection", { schema: "gamedb" })
+export class Gaconnection {
   @PrimaryGeneratedColumn({ type: "int", name: "idconnection" })
   idconnection: number;
 
@@ -11,8 +11,8 @@ export class Connection {
   @Column("varchar", { name: "gamename", nullable: true, length: 45 })
   gamename: string | null;
 
-  @Column("varchar", { name: "ip", nullable: true, length: 45 })
-  ip: string | null;
+  @Column("varchar", { name: "ServerIp", nullable: true, length: 45 })
+  serverIp: string | null;
 
   @Column("varchar", { name: "status", nullable: true, length: 45 })
   status: string | null;
