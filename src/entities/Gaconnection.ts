@@ -11,7 +11,7 @@ export class Gaconnection {
   @Column("varchar", { name: "gamename", nullable: true, length: 45 })
   gamename: string | null;
 
-  @Column("varchar", { name: "ServerIp", nullable: true, length: 45 })
+  @Column("varchar", { name: "serverIp", nullable: true, length: 45 })
   serverIp: string | null;
 
   @Column("varchar", { name: "status", nullable: true, length: 45 })
