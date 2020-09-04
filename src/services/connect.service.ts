@@ -1,6 +1,36 @@
 import { getManager, Repository, Any } from 'typeorm';
 import { Gaconnection } from '../entities/Gaconnection';
 
+/**
+ * @swagger
+ * definitions:
+ *   GaConnection:
+ *     type: object
+ *     properties:
+ *       idconnection: 
+ *          type: number
+ *          description: id
+ *       username: 
+ *          type: string
+ *          description: username
+ *       gamename: 
+ *          type: string
+ *          description: gamename
+ *       serverIp: 
+ *          type: string
+ *          description: serverIp
+ *       status: 
+ *          type: string
+ *          description: status
+ *       lstUpdateTime: 
+ *          type: string
+ *          description: lstUpdateTime
+ *       pid: 
+ *          type: string
+ *          description: pid
+ */
+
+
 export class ConnectService {
     gaconnectionRepository: Repository<Gaconnection>;
 
@@ -28,30 +58,26 @@ export class ConnectService {
  *       200:
  *         description: successfully get connecting GameServer ip
  *         schema:
- *           type: object
- *           properties:
- *             ip: 
- *               type: string
- *               description: ip
+ *           $ref: '#/definitions/GaConnection'
  */
-    getConnectedGameServerIp = async (res) => {
-        const { username } = res.query;
-
-        const lastIp = await getManager()
+    getConnectedGameServerIp = async (req) => {
+        const { username } = req.query;
+        console.log("username", username)
+        const res = await getManager()
             .getRepository(Gaconnection)
             .createQueryBuilder("GSI")
             .orderBy({ "GSI.lastUpdateTime": "DESC" })
-            .where("GSI.status = status", { status: 'on' })
+            .where("GSI.status = status", { status: 'TRUE' })
             .andWhere("GSI.username = username", { username: username })
             .getOne();
-
-        return lastIp;
+        console.log("lastIp", res)
+        return res;
     }
 
 
     /**
  * @swagger
- * /ip/serverIp:
+ * /ip/serverip:
  *   get:
  *     description: get connecting GameServer ip
  *     tags:

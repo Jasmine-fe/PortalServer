@@ -7,7 +7,7 @@ export const checkLogin = async (req: Request, res: Response, next: NextFunction
     try {
       const loginService = new LoginService();
       const resData = await loginService.checkLogin(req)
-      return res.status(HttpStatus.OK).json({ data: resData });
+      return res.status(HttpStatus.OK).json({ success: true, data: resData });
     } catch (err) {
       const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
       return next(error);

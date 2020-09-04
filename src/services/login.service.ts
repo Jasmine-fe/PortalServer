@@ -7,23 +7,16 @@ import { Login } from '../entities/Login';
  *   Login:
  *     type: object
  *     properties:
- *       id: 
+ *       id:
  *          type: number
  *          description: id
- *       username: 
+ *       username:
  *          type: string
  *          description: username
- *       loginTime:
- *          type: string
- *          description: loginTime
- *       password: 
+ *       password:
  *          type: string
  *          description: password
  */
-
-
-
-
 export class LoginService {
     loginRepository: Repository<Login>;
 
@@ -34,7 +27,7 @@ export class LoginService {
     /**
  * @swagger
  * /login:
- *   get:
+ *   post:
  *     description: checkLogin
  *     tags:
  *       - login
@@ -44,40 +37,34 @@ export class LoginService {
  *       - application/json
  *     parameters:
  *       - in: body
- *         name: username
- *         required: true
- *         type: string
- *       - in: query
- *         name: password
- *         required: true
- *         type: string
+ *         name: login
+ *         description: login info
+ *         schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                  type: string
+ *               password:
+ *                  type: string
  *     responses:
  *       200:
  *         description: successfully checkLogin
  *         schema:
- *           type: object
- *           properties:
- *             game: 
- *               type: object
- *               $ref: '#/definitions/Login'
+ *           $ref: '#/definitions/Login'
  */
     async checkLogin(req): Promise<any> {
-        // login
         const username = req.body.username;
         const password = req.body.password;
-        if (username) {
-            await getManager()
+        if (username && password) {
+            const res = await getManager()
                 .getRepository(Login)
                 .findOne({ username: username, password: password })
-                .then((res: any) => {
-                    console.log("Res", res)
-                    if (res) {
-                        return res;
-                    }
-                    else {
-                        return Promise.reject();
-                    }
-                })
+            if (res && res.username) {
+                return res;
+            } else {
+                return Promise.reject();
+            }
+
         }
         else {
             return Promise.reject();
