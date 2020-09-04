@@ -22,7 +22,7 @@ const options = {
         host: 'localhost:3000',
         basePath: '/',
     },
-    apis: ['src/services/gameList.service.ts'],
+    apis: ['src/services/*.service.ts'],
     
 };
 const swaggerSpec = swaggerJSDoc(options);

@@ -10,7 +10,7 @@ export class ConnectService {
 
  /**
  * @swagger
- * /serverIp:
+ * /ip:
  *   get:
  *     description: get connecting GameServer ip
  *     tags:
@@ -48,9 +48,48 @@ export class ConnectService {
         return lastIp;
     }
 
+
+    /**
+ * @swagger
+ * /ip/serverIp:
+ *   get:
+ *     description: get connecting GameServer ip
+ *     tags:
+ *       - ip
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: username
+ *         required: true
+ *         type: string
+ *       - in: body
+ *         name: ip
+ *         required: true
+ *         type: string
+ *       - in: body
+ *         name: status
+ *         required: true
+ *         type: string
+ *       - in: body
+ *         name: pid
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: successfully get connecting GameServer ip
+ *         schema:
+ *           type: object
+ *           properties:
+ *             ip: 
+ *               type: string
+ *               description: ip
+ */
     async recordGameServerIp(req): Promise<any> {
 
-        const { username, gamename, ip, status } = req.body;
+        const { username, gamename, ip, status, pid="" } = req.body;
         this.gaconnectionRepository
         .createQueryBuilder("GSI").insert()
         .into(Gaconnection)
@@ -59,6 +98,7 @@ export class ConnectService {
           gamename,
           serverIp: ip,
           status,
+          pid,
           lstUpdateTime: new Date()+""
         }])
         .execute()

@@ -14,7 +14,7 @@ router.use(cors({origin: '*'}))
 /* tslint:disable:no-unused-variable */
 
 router.use('/login', LoginRouter);
+router.use('/ip', connectRouter);
 router.use('/game', gameListRouter);
-router.use.get('/connect ', connectRouter)
 
 // router.use('/file', providerRouter);

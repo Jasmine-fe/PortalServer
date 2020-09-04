@@ -17,6 +17,9 @@ export class Gaconnection {
   @Column("varchar", { name: "status", nullable: true, length: 45 })
   status: string | null;
 
-  @Column("varchar", { name: "lstUpdateTime", nullable: true, length: 45 })
-  lstUpdateTime: string | null;
+  @Column("datetime", { name: "lstUpdateTime", nullable: true })
+  lstUpdateTime: Date | null;
+
+  @Column("varchar", { name: "pid", nullable: true, length: 45 })
+  pid: string | null;
 }

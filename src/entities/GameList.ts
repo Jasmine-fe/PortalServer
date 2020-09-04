@@ -17,8 +17,8 @@ export class Gamelist {
   @Column("text", { name: "providerId", nullable: true })
   providerId: string | null;
 
-  @Column("text", { name: "LastUpdateTime", nullable: true })
-  lastUpdateTime: string | null;
+  @Column("datetime", { name: "LastUpdateTime", nullable: true })
+  lastUpdateTime: Date | null;
 
   @Column("text", { name: "gameId", nullable: true })
   gameId: string | null;
@@ -28,4 +28,7 @@ export class Gamelist {
 
   @Column("text", { name: "excuteMode", nullable: true })
   excuteMode: string | null;
+
+  @Column("varchar", { name: "filename", nullable: true, length: 45 })
+  filename: string | null;
 }
