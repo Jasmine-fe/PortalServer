@@ -10,8 +10,12 @@ import * as multer from 'multer';
 import * as cors from 'cors';
 import { connectDB } from './database'
 import { router } from './routes/index';
-import { uploadImgFile, sendImgFile } from './controllers/provider.controller'; 
-import  { router as swaggerRouter }  from './swagger';
+import { uploadImgFile, sendImgFile } from './controllers/provider.controller';
+import { router as swaggerRouter } from './swagger';
+import { jwt } from './auth/jwt';
+import { errorHandler } from './auth/errorHandler';
+
+require('dotenv').config();
 express.Router().use(cors({origin: '*'}))
 
 const app = express();
@@ -36,8 +40,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// jwt token & router
+app.use(jwt());
 app.use('/', router);
+// swagger path
 app.use('/api/docs', swaggerRouter);
+app.use(errorHandler);
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });

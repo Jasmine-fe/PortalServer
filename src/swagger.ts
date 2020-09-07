@@ -17,6 +17,14 @@ const options = {
                 name: 'game',
                 description: 'game API',
             },
+            {
+                name: 'ip',
+                description: 'ip connection API',
+            },
+            {
+                name: 'login',
+                description: 'login API',
+            },
         ],
         schemes: ['http'],
         host: 'localhost:3000',

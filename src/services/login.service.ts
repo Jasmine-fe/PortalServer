@@ -1,5 +1,9 @@
 import { getManager, Repository, Any } from 'typeorm';
 import { Login } from '../entities/Login';
+import * as expressJwt from 'express-jwt';
+import * as jwt from 'jsonwebtoken';
+import { generateAccessToken } from '../auth/auth';
+
 
 /**
  * @swagger
@@ -28,7 +32,7 @@ export class LoginService {
  * @swagger
  * /login:
  *   post:
- *     description: checkLogin
+ *     description: userLoginJWT
  *     tags:
  *       - login
  *     produces:
@@ -48,26 +52,35 @@ export class LoginService {
  *                  type: string
  *     responses:
  *       200:
- *         description: successfully checkLogin
+ *         description: successfully userLoginJWT
  *         schema:
  *           $ref: '#/definitions/Login'
  */
-    async checkLogin(req): Promise<any> {
-        const username = req.body.username;
-        const password = req.body.password;
+    async userLoginJWT(req): Promise<any> {
+        const { username, password } = req.body;
+        const authHeader = req.headers.authorization;
+        const token = authHeader.split(' ')[1];
         if (username && password) {
             const res = await getManager()
                 .getRepository(Login)
-                .findOne({ username: username, password: password })
+                .findOne({ username: username })
             if (res && res.username) {
-                return res;
-            } else {
-                return Promise.reject();
+                const jwtToken = generateAccessToken(username);
+                return Promise.resolve({ token: jwtToken });
             }
+        }
+        return Promise.reject();
+    }
 
-        }
-        else {
-            return Promise.reject();
-        }
+    async userRegister(req): Promise<any> {
+        const { username } = req.body;
+        const jwtToken = generateAccessToken(username);
+        this.loginRepository
+        .createQueryBuilder("login").insert()
+        .into(Login)
+        .values([{
+            username,
+        }])
+        return Promise.resolve({token: jwtToken});
     }
 }
