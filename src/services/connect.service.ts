@@ -62,7 +62,6 @@ export class ConnectService {
  */
     getConnectedGameServerIp = async (req) => {
         const { username } = req.query;
-        console.log("username", username)
         const res = await getManager()
             .getRepository(Gaconnection)
             .createQueryBuilder("GSI")
@@ -79,7 +78,7 @@ export class ConnectService {
  * @swagger
  * /ip/serverip:
  *   get:
- *     description: get connecting GameServer ip
+ *     description: record game server ip
  *     tags:
  *       - ip
  *     produces:
@@ -88,21 +87,19 @@ export class ConnectService {
  *       - application/json
  *     parameters:
  *       - in: body
- *         name: username
- *         required: true
- *         type: string
- *       - in: body
- *         name: ip
- *         required: true
- *         type: string
- *       - in: body
- *         name: status
- *         required: true
- *         type: string
- *       - in: body
- *         name: pid
- *         required: true
- *         type: string
+ *         name: gameServerIp
+ *         description: game server ip
+ *         schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                  type: string
+ *               ip:
+ *                  type: string
+ *               status:
+ *                  type: string
+ *               pid:
+ *                  type: string
  *     responses:
  *       200:
  *         description: successfully get connecting GameServer ip
@@ -128,5 +125,8 @@ export class ConnectService {
           lstUpdateTime: new Date()+""
         }])
         .execute()
+
+        return ip;
       }
+       
 }

@@ -18,8 +18,8 @@ export const connectedGameServerIp = async (req: Request, res: Response, next: N
 export const recordGameServerIp = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const connectService = new ConnectService();
-    const recordData = await connectService.recordGameServerIp(req)
-    return res.status(HttpStatus.OK).json({ data: "update success" });
+    const resData = await connectService.recordGameServerIp(req)
+    return res.status(HttpStatus.OK).json({ success: true, data: resData });
   } catch (err) {
     const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
     return next(error);
