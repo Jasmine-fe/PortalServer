@@ -1,8 +1,9 @@
 import { getManager, Repository, Any } from 'typeorm';
 import { Login } from '../entities/Login';
+import { generateAccessToken } from '../auth/auth';
 import * as expressJwt from 'express-jwt';
 import * as jwt from 'jsonwebtoken';
-import { generateAccessToken } from '../auth/auth';
+import * as bcrypt from 'bcrypt';
 
 
 /**
@@ -58,17 +59,22 @@ export class LoginService {
  */
     async userLoginJWT(req): Promise<any> {
         const { username, password } = req.body;
-        const authHeader = req.headers.authorization;
-        const token = authHeader.split(' ')[1];
-        if (username && password) {
-            const res = await getManager()
-                .getRepository(Login)
-                .findOne({ username: username })
-            if (res && res.username) {
-                const jwtToken = generateAccessToken(username);
-                return Promise.resolve({ token: jwtToken });
-            }
+        const userInfo = await getManager()
+            .getRepository(Login)
+            .findOne({ username: username })
+        const hashText = userInfo?.password;
+        var validateResult = false;
+        bcrypt.compare(password, hashText)
+            .then((res) => {
+                if (res) {
+                    validateResult = true;
+                }
+            })
+        if (validateResult) {
+            const jwtToken = generateAccessToken(username);
+            return Promise.resolve({ token: jwtToken });
         }
+
         return Promise.reject();
     }
 

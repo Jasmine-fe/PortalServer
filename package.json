@@ -11,6 +11,7 @@
     "db": "rm -rf ./src/entities & npx typeorm-model-generator -h 192.168.43.196 -d gamedb -p 3306 -u kitty -x pink -e mysql -o ./src/entities --noConfig true --ce pascal --cp camel"
   },
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
