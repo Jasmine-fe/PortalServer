@@ -1,4 +1,4 @@
-import { getManager, Repository, Any } from 'typeorm';
+import { getManager, Repository } from 'typeorm';
 import { Gamelist } from '../entities/Gamelist';
 import { Provider } from '../entities/Provider';
 import { Gaconnection } from '../entities/Gaconnection';
@@ -56,12 +56,12 @@ import { Gaconnection } from '../entities/Gaconnection';
 export class GameListService {
   gameListRepository: Repository<Gamelist>;
   providerRepository: Repository<Provider>;
-  connectionRepository: Repository<Gaconnection>;
+  gaConnectionRepository: Repository<Gaconnection>;
 
   constructor() {
     this.gameListRepository = getManager().getRepository(Gamelist);
     this.providerRepository = getManager().getRepository(Provider);
-    this.connectionRepository = getManager().getRepository(Gaconnection)
+    this.gaConnectionRepository = getManager().getRepository(Gaconnection)
   }
 
 /**
@@ -130,5 +130,18 @@ export class GameListService {
       return { game: game, provider: provider };
     }
     return Promise.reject(false);
+  }
+
+  async getProcessingGames(req): Promise<any> {
+    const res = await this.gameListRepository
+    .createQueryBuilder("GLR")
+    .leftJoinAndSelect(Gaconnection, "GAC", "GLR.name = GAC.gamename")
+    .andWhere("GAC.status = status", { status: 'TRUE' })
+    .getMany();
+
+    if(res) {
+      return { processingGames: res };
+    }
+    return  Promise.reject();
   }
 }
