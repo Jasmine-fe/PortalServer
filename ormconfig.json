@@ -9,6 +9,12 @@
     "connectTimeout": 15000,
     "acquireTimeout": 15000,
     "entities": [
-        "./src/entities/*.ts"
-    ]
+        "src/entities/*.ts"
+     ],
+     "migrations": [
+        "src/migration/*.ts"
+     ],
+     "subscribers": [
+      "src/subscriber/*.ts"
+     ]
 }
