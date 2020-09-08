@@ -22,4 +22,7 @@ export class Gaconnection {
 
   @Column("varchar", { name: "pid", nullable: true, length: 45 })
   pid: string | null;
+
+  @Column("varchar", { name: "gameid", nullable: true, length: 45 })
+  gameid: string | null;
 }

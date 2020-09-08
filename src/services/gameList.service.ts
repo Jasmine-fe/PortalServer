@@ -144,4 +144,22 @@ export class GameListService {
     }
     return  Promise.reject();
   }
+
+  async getProcessingIp(req): Promise<any> {
+    const { gameId } = req.query
+    const res = await getManager()
+      .getRepository(Gaconnection)
+      .createQueryBuilder("GAC")
+      .orderBy({ "GAC.lstUpdateTime": "DESC" })
+      .where("GAC.gameId = gameId", { gameId: gameId })
+      .andWhere("GAC.status = status", { status: 'TRUE' })
+      .getOne();
+
+    console.log("res", res)
+
+    if(res) {
+      return { processingGame: res };
+    }
+    return  Promise.reject();
+  }
 }

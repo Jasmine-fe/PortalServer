@@ -4,4 +4,5 @@ export const gameListRouter: Router = Router();
 
 gameListRouter.get('/list', gameList.getGameList)
 gameListRouter.get('/content', gameList.gmaeGameContent)
-gameListRouter.get('/progress', gameList.getProcessingGames)
+gameListRouter.get('/progress/list', gameList.getProcessingGames)
+gameListRouter.get('/progress/ip', gameList.getProcessingIp)
