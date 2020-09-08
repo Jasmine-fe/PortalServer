@@ -154,9 +154,6 @@ export class GameListService {
       .where("GAC.gameId = gameId", { gameId: gameId })
       .andWhere("GAC.status = status", { status: 'TRUE' })
       .getOne();
-
-    console.log("res", res)
-
     if(res) {
       return { processingGame: res };
     }

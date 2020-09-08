@@ -112,13 +112,14 @@ export class ConnectService {
  */
     async recordGameServerIp(req): Promise<any> {
 
-        const { username, gamename, ip, status, pid="" } = req.body;
+        const { username, gamename, ip, status, gameId, pid="" } = req.body;
         this.gaconnectionRepository
         .createQueryBuilder("GSI").insert()
         .into(Gaconnection)
         .values([{
           username,
           gamename,
+          gameId,
           serverIp: ip,
           status,
           pid,
