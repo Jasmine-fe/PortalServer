@@ -159,4 +159,25 @@ export class GameService {
     }
     return  Promise.reject();
   }
+
+  async getProcessingGameInfo(req): Promise<any> {
+    const { username } = req.query;
+
+    const progressingInfo = await this.gaConnectionRepository
+      .createQueryBuilder("GAC")
+      .orderBy({ "GAC.lstUpdateTime": "DESC" })
+      .where("GAC.username = username", { username: username })
+      .andWhere("GAC.status = status", { status: 'TRUE' })
+      .getOne();
+
+    const gameId = progressingInfo ? progressingInfo.gameId : "";
+
+    const gameInfo = await this.gameListRepository.findOne({ gameId: gameId });
+
+    if (gameId) {
+      return { progressingInfo, gameInfo };
+    }
+    return Promise.reject();
+  }
+
 }
