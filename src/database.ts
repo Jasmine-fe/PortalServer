@@ -22,7 +22,6 @@ const opt = {
 }
 
 
-
 export const connectDB = async () => {
   await createConnection({
     type: "mysql",
@@ -32,7 +31,7 @@ export const connectDB = async () => {
     password: "pink",
     database: "gamedb",
     entities: [
-      "src/entities/*.ts"
+      __dirname + "/entities/*.ts"
     ],
     synchronize: true,
     logging: false,
