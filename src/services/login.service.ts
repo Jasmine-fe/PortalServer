@@ -59,34 +59,33 @@ export class LoginService {
  */
     async userLoginJWT(req): Promise<any> {
         const { username, password } = req.body;
-        const userInfo = await getManager()
+        const userInfo: any = await getManager()
             .getRepository(Login)
-            .findOne({ username: username })
-        const hashText = userInfo?.password;
-        var validateResult = false;
-        bcrypt.compare(password, hashText)
-            .then((res) => {
-                if (res) {
-                    validateResult = true;
-                }
-            })
+            .findOne({ username })
+        const validateResult = await bcrypt.compare(password, userInfo.password)
         if (validateResult) {
             const jwtToken = generateAccessToken(username);
             return Promise.resolve({ token: jwtToken });
         }
+        else {
+            return Promise.reject();
+        }
 
-        return Promise.reject();
     }
 
     async userRegister(req): Promise<any> {
-        const { username } = req.body;
+        const { username, password } = req.body;
+
         const jwtToken = generateAccessToken(username);
         this.loginRepository
         .createQueryBuilder("login").insert()
         .into(Login)
         .values([{
             username,
+            password
         }])
+        .execute()
+
         return Promise.resolve({token: jwtToken});
     }
 }
