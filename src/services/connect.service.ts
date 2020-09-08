@@ -129,5 +129,11 @@ export class ConnectService {
 
         return ip;
       }
+
+    
+    async endGameConnection(req): Promise<any> {
+        const { } = req.body;
+    
+    }
        
 }

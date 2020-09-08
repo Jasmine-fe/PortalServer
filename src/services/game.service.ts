@@ -53,7 +53,7 @@ import { Gaconnection } from '../entities/Gaconnection';
  *          description: providerId
  */
 
-export class GameListService {
+export class GameService {
   gameListRepository: Repository<Gamelist>;
   providerRepository: Repository<Provider>;
   gaConnectionRepository: Repository<Gaconnection>;
@@ -145,7 +145,7 @@ export class GameListService {
     return  Promise.reject();
   }
 
-  async getProcessingIp(req): Promise<any> {
+  async getProcessingGameIp(req): Promise<any> {
     const { gameId } = req.query
     const res = await getManager()
       .getRepository(Gaconnection)

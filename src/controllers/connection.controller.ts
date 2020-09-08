@@ -1,6 +1,6 @@
 import { Request, Response ,NextFunction, Router } from 'express';
 import { ConnectService } from '../services/connect.service';
-import { GameListService } from '../services/gameList.service';
+import { GameService } from '../services/game.service';
 import { ApiResponseError } from '../interfaces/ApiResponseError';
 import * as HttpStatus from 'http-status-codes';
 

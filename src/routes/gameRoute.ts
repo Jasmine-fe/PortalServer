@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import * as gameList from '../controllers/gameList.controller'
-export const gameListRouter: Router = Router();
+import * as game from '../controllers/game.controller'
+export const gameRouter: Router = Router();
 
-gameListRouter.get('/list', gameList.getGameList)
-gameListRouter.get('/content', gameList.gmaeGameContent)
-gameListRouter.get('/progress/list', gameList.getProcessingGames)
-gameListRouter.get('/progress/ip', gameList.getProcessingIp)
+gameRouter.get('/list', game.getGameList)
+gameRouter.get('/content', game.gmaeGameContent)
+gameRouter.get('/progress/list', game.getProcessingGames)
+gameRouter.get('/progress/ip', game.getProcessingGameIp)

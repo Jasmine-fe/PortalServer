@@ -1,6 +1,6 @@
 import * as swaggerUi from 'swagger-ui-express';
 import * as swaggerJSDoc from 'swagger-jsdoc';
-import { gameListRouter } from './gameRoute'
+import { gameRouter } from './gameRoute'
 import { providerRouter } from './providerRouter'
 import { LoginRouter } from './loginRoute';
 import { connectRouter } from './connectRoute';
@@ -15,6 +15,6 @@ router.use(cors({origin: '*'}))
 
 router.use('/user', LoginRouter);
 router.use('/ip', connectRouter);
-router.use('/game', gameListRouter);
+router.use('/game', gameRouter);
 
 // router.use('/file', providerRouter);
