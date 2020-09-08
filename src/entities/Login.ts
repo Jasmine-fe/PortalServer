@@ -8,6 +8,6 @@ export class Login {
   @Column("varchar", { name: "username", nullable: true, length: 20 })
   username: string | null;
 
-  @Column("varchar", { name: "password", nullable: true, length: 45 })
+  @Column("varchar", { name: "password", nullable: true, length: 200 })
   password: string | null;
 }
