@@ -41,7 +41,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // jwt token & router
-app.use(jwt());
+// app.use(jwt());
 app.use('/', router);
 // swagger path
 app.use('/api/docs', swaggerRouter);

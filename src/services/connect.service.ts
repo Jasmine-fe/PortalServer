@@ -66,7 +66,7 @@ export class ConnectService {
             .getRepository(Gaconnection)
             .createQueryBuilder("GSI")
             .orderBy({ "GSI.lastUpdateTime": "DESC" })
-            .where("GSI.status = status", { status: 'TRUE' })
+            .where("GSI.status = :status", { status: 'TRUE' })
             .andWhere("GSI.username = username", { username: username })
             .getOne();
         console.log("lastIp", res)

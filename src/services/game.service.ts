@@ -151,8 +151,8 @@ export class GameService {
       .getRepository(Gaconnection)
       .createQueryBuilder("GAC")
       .orderBy({ "GAC.lstUpdateTime": "DESC" })
-      .where("GAC.gameId = gameId", { gameId: gameId })
-      .andWhere("GAC.status = status", { status: 'TRUE' })
+      .where("GAC.gameId = :gameId", { gameId: gameId })
+      .andWhere("GAC.status = :status", { status: 'TRUE' })
       .getOne();
     if(res) {
       return { processingGame: res };
@@ -166,8 +166,8 @@ export class GameService {
     const progressingInfo = await this.gaConnectionRepository
       .createQueryBuilder("GAC")
       .orderBy({ "GAC.lstUpdateTime": "DESC" })
-      .where("GAC.username = username", { username: username })
-      .andWhere("GAC.status = status", { status: 'TRUE' })
+      .where("GAC.username = :username", { username: username })
+      .andWhere("GAC.status = :status", { status: 'TRUE' })
       .getOne();
 
     const gameId = progressingInfo ? progressingInfo.gameId : "";
