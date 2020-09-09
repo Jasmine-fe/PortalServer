@@ -2,7 +2,7 @@ import { getManager, Repository } from 'typeorm';
 import { Gameslist } from '../entities/Gameslist';
 import { Provider } from '../entities/Provider';
 import { Gaconnection } from '../entities/Gaconnection';
-
+import { gameModel } from '../models/game.model'
 /**
  * @swagger
  * definitions:
@@ -133,13 +133,15 @@ export class GameService {
   }
 
   async getProcessingGames(req): Promise<any> {
-    const res = await this.gameslistRepository
-    .createQueryBuilder("GLR")
-    .leftJoinAndSelect(Gaconnection, "GAC", "GLR.name = GAC.gamename")
-    .andWhere("GAC.status = status", { status: 'TRUE' })
+    const list =  await this.gameslistRepository.find();
+    const connectGames = await this.gaConnectionRepository
+    .createQueryBuilder('GAC')
+    .where('GAC.status = :status', { status: 'TRUE' })
+    .leftJoin(Gameslist, 'GLR', 'GAC.gamename = GLR.name')
     .getMany();
 
-    if(res) {
+    const res = await gameModel(list, connectGames);
+    if(list && connectGames) {
       return { processingGames: res };
     }
     return  Promise.reject();
@@ -150,9 +152,10 @@ export class GameService {
     const res = await getManager()
       .getRepository(Gaconnection)
       .createQueryBuilder("GAC")
+      .select(['GAC.serverIp', 'GAC.username'])
       .orderBy({ "GAC.lstUpdateTime": "DESC" })
       .where("GAC.gameId = :gameId", { gameId: gameId })
-      .andWhere("GAC.status = :status", { status: 'TRUE' })
+      .andWhere("GAC.status = status", { status: 'TRUE' })
       .getOne();
     if(res) {
       return { processingGame: res };
@@ -167,7 +170,7 @@ export class GameService {
       .createQueryBuilder("GAC")
       .orderBy({ "GAC.lstUpdateTime": "DESC" })
       .where("GAC.username = :username", { username: username })
-      .andWhere("GAC.status = :status", { status: 'TRUE' })
+      .andWhere("GAC.status = status", { status: 'TRUE' })
       .getOne();
 
     const gameId = progressingInfo ? progressingInfo.gameId : "";
