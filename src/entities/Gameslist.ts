@@ -1,7 +1,7 @@
 import { Column, Entity } from "typeorm";
 
-@Entity("gamelist", { schema: "gamedb" })
-export class Gamelist {
+@Entity("gameslist", { schema: "gamedb" })
+export class Gameslist {
   @Column("int", { primary: true, name: "id" })
   id: number;
 
