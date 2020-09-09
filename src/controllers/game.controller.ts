@@ -4,10 +4,10 @@ import { ApiResponseError } from '../interfaces/ApiResponseError';
 import * as HttpStatus from 'http-status-codes';
 
 
-export const getGameList = async (req: Request, res: Response, next: NextFunction) => {
+export const getGameslist = async (req: Request, res: Response, next: NextFunction) => {
   const gameService = new GameService();
   try {
-    const game = await gameService.getAllGameList(req)
+    const game = await gameService.getAllGameslist(req)
     return res.status(HttpStatus.OK).json({ success: true, data: game });
   } catch (err) {
     const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };

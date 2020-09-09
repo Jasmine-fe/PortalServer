@@ -1,10 +1,10 @@
 import { getManager, Repository, Any } from 'typeorm';
-import { Gamelist } from '../entities/Gamelist';
+import { Gameslist } from '../entities/Gameslist';
 import { Coverimg } from '../entities/Coverimg';
 import * as fs from 'fs-extra';
 
 export class ProviderService {
-    gameListRepository: Repository<Gamelist>;
+    gameslistRepository: Repository<Gameslist>;
     coverImgRepository: Repository<Coverimg>;
     constructor() { }
 

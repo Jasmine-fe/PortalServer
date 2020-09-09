@@ -1,12 +1,12 @@
 import { getManager, Repository } from 'typeorm';
-import { Gamelist } from '../entities/Gamelist';
+import { Gameslist } from '../entities/Gameslist';
 import { Provider } from '../entities/Provider';
 import { Gaconnection } from '../entities/Gaconnection';
 
 /**
  * @swagger
  * definitions:
- *   Gamelist:
+ *   Gameslist:
  *     type: object
  *     properties:
  *       id: 
@@ -54,12 +54,12 @@ import { Gaconnection } from '../entities/Gaconnection';
  */
 
 export class GameService {
-  gameListRepository: Repository<Gamelist>;
+  gameslistRepository: Repository<Gameslist>;
   providerRepository: Repository<Provider>;
   gaConnectionRepository: Repository<Gaconnection>;
 
   constructor() {
-    this.gameListRepository = getManager().getRepository(Gamelist);
+    this.gameslistRepository = getManager().getRepository(Gameslist);
     this.providerRepository = getManager().getRepository(Provider);
     this.gaConnectionRepository = getManager().getRepository(Gaconnection)
   }
@@ -80,10 +80,10 @@ export class GameService {
  *         description: successfully return all available game list
  *         schema:
  *           type: object
- *           $ref: '#/definitions/Gamelist'
+ *           $ref: '#/definitions/Gameslist'
  */
-  async getAllGameList(req): Promise<Gamelist[]> {
-    const res =  await this.gameListRepository.find();
+  async getAllGameslist(req): Promise<Gameslist[]> {
+    const res =  await this.gameslistRepository.find();
     return res;
   }
 
@@ -116,7 +116,7 @@ export class GameService {
  *           properties:
  *             game: 
  *               type: object
- *               $ref: '#/definitions/Gamelist'
+ *               $ref: '#/definitions/Gameslist'
  *             provider:
  *               type: object
  *               $ref: '#/definitions/Provider'
@@ -125,7 +125,7 @@ export class GameService {
     const gameId = req.query.gameId
     const providerId = req.query.providerId
     if (gameId) {
-      const game = await this.gameListRepository.findOne({gameId: gameId});
+      const game = await this.gameslistRepository.findOne({gameId: gameId});
       const provider = await this.providerRepository.findOne({providerId: providerId});
       return { game: game, provider: provider };
     }
@@ -133,7 +133,7 @@ export class GameService {
   }
 
   async getProcessingGames(req): Promise<any> {
-    const res = await this.gameListRepository
+    const res = await this.gameslistRepository
     .createQueryBuilder("GLR")
     .leftJoinAndSelect(Gaconnection, "GAC", "GLR.name = GAC.gamename")
     .andWhere("GAC.status = status", { status: 'TRUE' })
@@ -172,7 +172,7 @@ export class GameService {
 
     const gameId = progressingInfo ? progressingInfo.gameId : "";
 
-    const gameInfo = await this.gameListRepository.findOne({ gameId: gameId });
+    const gameInfo = await this.gameslistRepository.findOne({ gameId: gameId });
 
     if (gameId) {
       return { progressingInfo, gameInfo };
