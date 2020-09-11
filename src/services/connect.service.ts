@@ -22,9 +22,9 @@ import { Gaconnection } from '../entities/Gaconnection';
  *       status: 
  *          type: string
  *          description: status
- *       lstUpdateTime: 
+ *       lastUpdateTime: 
  *          type: string
- *          description: lstUpdateTime
+ *          description: lastUpdateTime
  *       pid: 
  *          type: string
  *          description: pid
@@ -123,7 +123,7 @@ export class ConnectService {
           serverIp: ip,
           status,
           pid,
-          lstUpdateTime: new Date()+""
+          lastUpdateTime: new Date()+""
         }])
         .execute()
 

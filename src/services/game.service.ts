@@ -153,7 +153,7 @@ export class GameService {
       .getRepository(Gaconnection)
       .createQueryBuilder("GAC")
       .select(['GAC.serverIp', 'GAC.username'])
-      .orderBy({ "GAC.lstUpdateTime": "DESC" })
+      .orderBy({ "GAC.lastUpdateTime": "DESC" })
       .where("GAC.gameId = :gameId", { gameId: gameId })
       .andWhere("GAC.status = status", { status: 'TRUE' })
       .getOne();
@@ -173,11 +173,9 @@ export class GameService {
       .andWhere("GAC.status = status", { status: 'TRUE' })
       .getOne();
 
-    const gameId = progressingInfo ? progressingInfo.gameId : "";
 
-    const gameInfo = await this.gameslistRepository.findOne({ gameId: gameId });
-
-    if (gameId) {
+    if( progressingInfo && progressingInfo.idconnection) {
+      const gameInfo = await this.gameslistRepository.findOne({ gameId: progressingInfo.gameId });
       return { progressingInfo, gameInfo };
     }
     return Promise.reject();

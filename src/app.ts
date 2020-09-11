@@ -21,13 +21,11 @@ express.Router().use(cors({origin: '*'}))
 const app = express();
 
 // send file response
-// app.use(express.static(__dirname + '/uploads'));
+app.use(express.static(path.join( __dirname, '/uploads')));
 
 // deal with image file
-// const upload = multer({ dest: './src/uploads' })
-// app.post('/provider', upload.single('image'), uploadImgFile)
-// app.get('/provider', sendImgFile)
-
+const upload = multer({ dest: './src/uploads' })
+app.post('/provider/image', upload.single('image'), uploadImgFile)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

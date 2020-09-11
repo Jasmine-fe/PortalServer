@@ -16,5 +16,4 @@ router.use(cors({origin: '*'}))
 router.use('/user', LoginRouter);
 router.use('/ip', connectRouter);
 router.use('/game', gameRouter);
-
-// router.use('/file', providerRouter);
+router.use('/provider', providerRouter);

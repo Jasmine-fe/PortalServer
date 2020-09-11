@@ -6,34 +6,64 @@ import * as fs from 'fs-extra';
 export class ProviderService {
     gameslistRepository: Repository<Gameslist>;
     coverImgRepository: Repository<Coverimg>;
-    constructor() { }
+    constructor() {
+        this.gameslistRepository = getManager().getRepository(Gameslist);
+        this.coverImgRepository = getManager().getRepository(Coverimg);
+
+    }
+
 
     async uploadImgFile(req): Promise<any> {
-        const fileInfo = req.file;
-        const name = fileInfo.originalname
-        const filename = fileInfo.filename
-        const type = fileInfo.mimetype
+        const { gameName } = req.query;
+        console.log("uploadImgFile name", gameName)
+        const filename = req.file.filename
         const data = fs.readFileSync("/Users/apple/Desktop/compal/ProtalServer/src/uploads/" + filename)
-        // console.log("name", name)
-        // console.log("type", type)
-
-        this.coverImgRepository
-        .createQueryBuilder("CI").insert()
-        .into(Coverimg)
-        .values([{
-            idCoverImg: 1,
-            type,
-            name,
-            data
-        }])
-        .execute()
-        .then(res => {
-            console.log("res")
-        })
+        const res = await this.gameslistRepository
+            .createQueryBuilder("GLR")
+            .update(Gameslist)
+            .set({
+                imgData: data
+            })
+            .where("name = :name", { name: gameName })
+            .execute();
+        return res;
     }
 
     async sendImgFile(req): Promise<any> {
-        return "123"
+        const { filename } = req.query;
+        const res: any = await this.coverImgRepository
+            .createQueryBuilder("CI")
+            .where("CI.name = :filename", { filename })
+            .getOne()
+        if (res) {
+            const image = Buffer.from(res.data).toString('base64');
+            return image
+        }
+    }
+
+    async createNewGame(req): Promise<any> {
+        const { name, descp, providerId = '001' } = req.body;
+        const res = await this.gameslistRepository
+            .createQueryBuilder("GLR").insert()
+            .into(Gameslist)
+            .values([{
+                name,
+                descp,
+                providerId,
+                lastUpdateTime: new Date() + "",
+            }])
+            .execute()
+            .then(res => {
+                console.log("res", res)
+                res ? Promise.resolve(res) : Promise.reject();
+            })
+            .catch(err => {
+                console.log("err", err)
+            })
+
+        console.log("Res", res);
+
+        return res;
     }
 
 
