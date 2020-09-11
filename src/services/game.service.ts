@@ -165,14 +165,12 @@ export class GameService {
 
   async getProcessingGameInfo(req): Promise<any> {
     const { username } = req.query;
-
     const progressingInfo = await this.gaConnectionRepository
       .createQueryBuilder("GAC")
-      .orderBy({ "GAC.lstUpdateTime": "DESC" })
+      .orderBy({ "GAC.lastUpdateTime": "DESC" })
       .where("GAC.username = :username", { username: username })
-      .andWhere("GAC.status = status", { status: 'TRUE' })
+      .andWhere("GAC.status = :status", { status: 'TRUE' })
       .getOne();
-
 
     if( progressingInfo && progressingInfo.idconnection) {
       const gameInfo = await this.gameslistRepository.findOne({ gameId: progressingInfo.gameId });
