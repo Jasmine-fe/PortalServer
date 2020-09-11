@@ -17,12 +17,12 @@ export class Gaconnection {
   @Column("varchar", { name: "status", nullable: true, length: 45 })
   status: string | null;
 
-  @Column("datetime", { name: "lstUpdateTime", nullable: true })
-  lstUpdateTime: Date | null;
+  @Column("datetime", { name: "lastUpdateTime", nullable: true })
+  lastUpdateTime: Date | null;
 
   @Column("varchar", { name: "pid", nullable: true, length: 45 })
   pid: string | null;
 
-  @Column("varchar", { name: "gameId", nullable: true, length: 45 })
-  gameId: string | null;
+  @Column("int", { name: "gameId" })
+  gameId: number;
 }

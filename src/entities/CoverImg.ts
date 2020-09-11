@@ -11,6 +11,6 @@ export class Coverimg {
   @Column("text", { name: "name", nullable: true })
   name: string | null;
 
-  @Column("text", { name: "data", nullable: true })
-  data: string | null;
+  @Column("longblob", { name: "data", nullable: true })
+  data: Buffer | null;
 }

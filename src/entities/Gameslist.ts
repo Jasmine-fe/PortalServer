@@ -1,10 +1,7 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("gameslist", { schema: "gamedb" })
 export class Gameslist {
-  @Column("int", { primary: true, name: "id" })
-  id: number;
-
   @Column("text", { name: "name", nullable: true })
   name: string | null;
 
@@ -20,8 +17,8 @@ export class Gameslist {
   @Column("datetime", { name: "LastUpdateTime", nullable: true })
   lastUpdateTime: Date | null;
 
-  @Column("text", { name: "gameId", nullable: true })
-  gameId: string | null;
+  @PrimaryGeneratedColumn({ type: "int", name: "gameId" })
+  gameId: number;
 
   @Column("text", { name: "configFile", nullable: true })
   configFile: string | null;
@@ -32,6 +29,9 @@ export class Gameslist {
   @Column("varchar", { name: "filename", nullable: true, length: 45 })
   filename: string | null;
 
-  @Column("longblob", { name: "testImg", nullable: true })
-  testImg: Buffer | null;
+  @Column("longblob", { name: "imgData", nullable: true })
+  imgData: Buffer | null;
+
+  @Column("varchar", { name: "imgFileName", nullable: true, length: 45 })
+  imgFileName: string | null;
 }
