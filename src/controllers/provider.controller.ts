@@ -6,8 +6,8 @@ import * as HttpStatus from 'http-status-codes';
 export const uploadImgFile = async (req: any, res: Response, next: NextFunction) => {
     const providerService = new ProviderService();
     try {
-      const resData = await providerService.uploadImgFile(req)
-      return res.status(HttpStatus.OK).json({ success: true, data: resData });
+      await providerService.uploadImgFile(req)
+      return res.status(HttpStatus.OK).json({ success: true });
     } catch (err) {
       const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
       return next(error);
@@ -29,7 +29,6 @@ export const uploadImgFile = async (req: any, res: Response, next: NextFunction)
     const providerService = new ProviderService();
     try {
       const resData = await providerService.createNewGame(req)
-      console.log("resData", resData);
       return res.status(HttpStatus.OK).json({ success: true, data: resData });
     } catch (err) {
       const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };

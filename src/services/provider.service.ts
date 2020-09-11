@@ -26,7 +26,8 @@ export class ProviderService {
             })
             .where("name = :name", { name: gameName })
             .execute();
-        return res;
+        
+        return Promise.resolve(true);
     }
 
     async sendImgFile(req): Promise<any> {
@@ -60,9 +61,6 @@ export class ProviderService {
             .catch(err => {
                 console.log("err", err)
             })
-
-        console.log("Res", res);
-
         return res;
     }
 

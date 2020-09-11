@@ -19,7 +19,7 @@ require('dotenv').config();
 express.Router().use(cors({origin: '*'}))
 
 const app = express();
-
+app.use(cors({origin: '*'}))
 // send file response
 app.use(express.static(path.join( __dirname, '/uploads')));
 
