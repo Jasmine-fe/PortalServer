@@ -15,7 +15,6 @@ export class ProviderService {
 
     async uploadImgFile(req): Promise<any> {
         const { gameName } = req.query;
-        console.log("uploadImgFile name", gameName)
         const filename = req.file.filename
         const data = fs.readFileSync("/Users/apple/Desktop/compal/ProtalServer/src/uploads/" + filename)
         const res = await this.gameslistRepository

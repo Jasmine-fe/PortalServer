@@ -25,3 +25,14 @@ export const recordGameServerIp = async (req: Request, res: Response, next: Next
     return next(error);
   }
 }
+
+export const updateConnectStatus = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const connectService = new ConnectService();
+    const resData = await connectService.updateConnectStatus(req)
+    return res.status(HttpStatus.OK).json({ success: true });
+  } catch (err) {
+    const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
+    return next(error);
+  }
+}

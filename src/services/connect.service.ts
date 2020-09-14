@@ -73,6 +73,24 @@ export class ConnectService {
         return res;
     }
 
+    async updateConnectStatus(req): Promise<any> {
+        const { ip, status } = req.body;
+        console.log("ip",ip, "status", status)
+        // error
+        const res = await this.gaconnectionRepository
+            .createQueryBuilder("GAC")
+            .update(Gaconnection)
+            .set({
+                status: status
+            })
+            .where("status = :status", { status: 'TRUE' })
+            .execute();
+
+            
+        return Promise.resolve(true);
+    }
+
+
 
     /**
  * @swagger
@@ -129,6 +147,8 @@ export class ConnectService {
 
         return ip;
       }
+
+    
 
     
     async endGameConnection(req): Promise<any> {
