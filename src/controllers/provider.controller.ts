@@ -14,10 +14,10 @@ export const uploadImgFile = async (req: any, res: Response, next: NextFunction)
     }
   };
 
-  export const sendImgFile = async (req: any, res: Response, next: NextFunction) => {
+  export const getImgFile = async (req: any, res: Response, next: NextFunction) => {
     const providerService = new ProviderService();
     try {
-      const resData = await providerService.sendImgFile(req)
+      const resData = await providerService.getImgFile(req)
       return res.status(HttpStatus.OK).json({ success: true, data: resData});
     } catch (err) {
       const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };

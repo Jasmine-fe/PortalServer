@@ -1,27 +1,23 @@
 import { getManager, Repository, Any } from 'typeorm';
 import { Gameslist } from '../entities/Gameslist';
-import { Coverimg } from '../entities/Coverimg';
 import * as fs from 'fs-extra';
 
 export class ProviderService {
     gameslistRepository: Repository<Gameslist>;
-    coverImgRepository: Repository<Coverimg>;
     constructor() {
         this.gameslistRepository = getManager().getRepository(Gameslist);
-        this.coverImgRepository = getManager().getRepository(Coverimg);
-
     }
 
 
     async uploadImgFile(req): Promise<any> {
         const { gameName } = req.query;
         const filename = req.file.filename
-        const data = fs.readFileSync("/Users/apple/Desktop/compal/ProtalServer/src/uploads/" + filename)
+        // const data = fs.readFileSync("src/uploads/" + filename)
         const res = await this.gameslistRepository
             .createQueryBuilder("GLR")
             .update(Gameslist)
             .set({
-                imgData: data
+                imgFileName: req.file.path
             })
             .where("name = :name", { name: gameName })
             .execute();
@@ -29,16 +25,15 @@ export class ProviderService {
         return Promise.resolve(true);
     }
 
-    async sendImgFile(req): Promise<any> {
+    async getImgFile(req): Promise<any> {
         const { filename } = req.query;
-        const res: any = await this.coverImgRepository
-            .createQueryBuilder("CI")
-            .where("CI.name = :filename", { filename })
+        const res = await this.gameslistRepository
+            .createQueryBuilder("GLR")
+            .where("GLR.name = :filename", { filename })
             .getOne()
-        if (res) {
-            const image = Buffer.from(res.data).toString('base64');
-            return image
-        }
+        const readFileData = res ? fs.readFileSync(res.imgFileName) : "";
+        const image = Buffer.from(readFileData).toString('base64');
+        return Promise.resolve(image);
     }
 
     async createNewGame(req): Promise<any> {

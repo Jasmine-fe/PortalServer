@@ -10,7 +10,7 @@ import * as multer from 'multer';
 import * as cors from 'cors';
 import { connectDB } from './database'
 import { router } from './routes/index';
-import { uploadImgFile, sendImgFile } from './controllers/provider.controller';
+import { uploadImgFile, getImgFile } from './controllers/provider.controller';
 import { router as swaggerRouter } from './swagger';
 import { jwt } from './auth/jwt';
 import { errorHandler } from './auth/errorHandler';
