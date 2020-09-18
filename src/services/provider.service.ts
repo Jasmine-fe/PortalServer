@@ -17,7 +17,7 @@ export class ProviderService {
             .createQueryBuilder("GLR")
             .update(Gameslist)
             .set({
-                imgFileName: req.file.path
+                imgPath: req.file.path
             })
             .where("name = :name", { name: gameName })
             .execute();
@@ -31,7 +31,7 @@ export class ProviderService {
             .createQueryBuilder("GLR")
             .where("GLR.name = :gameName", { gameName })
             .getOne()
-        const readFileData = res ? fs.readFileSync(res.imgFileName) : "";
+        const readFileData = res ? fs.readFileSync(res.imgPath) : "";
         const image = Buffer.from(readFileData).toString('base64');
         return Promise.resolve(image);
     }

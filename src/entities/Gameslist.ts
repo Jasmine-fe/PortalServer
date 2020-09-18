@@ -29,9 +29,6 @@ export class Gameslist {
   @Column("varchar", { name: "filename", nullable: true, length: 45 })
   filename: string | null;
 
-  @Column("longblob", { name: "imgData", nullable: true })
-  imgData: Buffer | null;
-
-  @Column("varchar", { name: "imgFileName", nullable: true, length: 45 })
-  imgFileName: string | null;
+  @Column("varchar", { name: "imgPath", nullable: true, length: 45 })
+  imgPath: string | null;
 }

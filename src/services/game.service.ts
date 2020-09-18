@@ -90,7 +90,7 @@ export class GameService {
 
     var gamesData: any[] = []
     await res.forEach(element => {
-      const readFileData = element ? fs.readFileSync(element.imgFileName) : "";
+      const readFileData = element ? fs.readFileSync(element.imgPath) : "";
       const image = Buffer.from(readFileData).toString('base64');
       gamesData.push({ base64Img: image, ...element })
     });
