@@ -35,3 +35,17 @@ export const uploadImgFile = async (req: any, res: Response, next: NextFunction)
       return next(error);
     }
   };
+
+// modify Config api
+  export const modifyConfig = async (req: any, res: Response, next: NextFunction) => {
+    const providerService = new ProviderService();
+    try {
+      const resData = await providerService.createNewGame(req)
+      return res.status(HttpStatus.OK).json({ success: true, data: resData });
+    } catch (err) {
+      const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
+      return next(error);
+    }
+  };
+
+  
