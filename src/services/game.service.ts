@@ -3,6 +3,9 @@ import { Gameslist } from '../entities/Gameslist';
 import { Provider } from '../entities/Provider';
 import { Gaconnection } from '../entities/Gaconnection';
 import { gameModel } from '../models/game.model'
+import * as fs from 'fs-extra';
+
+
 /**
  * @swagger
  * definitions:
@@ -83,8 +86,15 @@ export class GameService {
  *           $ref: '#/definitions/Gameslist'
  */
   async getAllGameslist(req): Promise<Gameslist[]> {
-    const res =  await this.gameslistRepository.find();
-    return res;
+    const res = await this.gameslistRepository.find();
+
+    var gamesData: any[] = []
+    await res.forEach(element => {
+      const readFileData = element ? fs.readFileSync(element.imgFileName) : "";
+      const image = Buffer.from(readFileData).toString('base64');
+      gamesData.push({ base64Img: image, ...element })
+    });
+    return gamesData;
   }
 
 

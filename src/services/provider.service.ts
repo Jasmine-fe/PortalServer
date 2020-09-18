@@ -24,12 +24,12 @@ export class ProviderService {
         
         return Promise.resolve(true);
     }
-
+    
     async getImgFile(req): Promise<any> {
-        const { filename } = req.query;
+        const { gameName } = req.query;
         const res = await this.gameslistRepository
             .createQueryBuilder("GLR")
-            .where("GLR.name = :filename", { filename })
+            .where("GLR.name = :gameName", { gameName })
             .getOne()
         const readFileData = res ? fs.readFileSync(res.imgFileName) : "";
         const image = Buffer.from(readFileData).toString('base64');
