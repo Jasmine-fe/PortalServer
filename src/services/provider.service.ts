@@ -1,6 +1,7 @@
 import { getManager, Repository, Any } from 'typeorm';
 import { Gameslist } from '../entities/Gameslist';
 import * as fs from 'fs-extra';
+import * as unzipper from 'unzipper';
 
 export class ProviderService {
     gameslistRepository: Repository<Gameslist>;
@@ -12,16 +13,27 @@ export class ProviderService {
     async uploadImgFile(req): Promise<any> {
         const { gameName } = req.query;
         const filename = req.file.filename
-        // const data = fs.readFileSync("src/uploads/" + filename)
-        const res = await this.gameslistRepository
-            .createQueryBuilder("GLR")
-            .update(Gameslist)
-            .set({
-                imgPath: req.file.path
-            })
-            .where("name = :name", { name: gameName })
-            .execute();
+
+
+
+
         
+        // const data = fs.readFileSync("src/uploads/" + filename)
+
+        
+        // const res = await this.gameslistRepository
+        //     .createQueryBuilder("GLR")
+        //     .update(Gameslist)
+        //     .set({
+        //         imgPath: req.file.path
+        //     })
+        //     .where("name = :name", { name: gameName })
+        //     .execute();
+        
+        return Promise.resolve(true);
+    }
+
+    uploadZipFile(req): Promise<any> {
         return Promise.resolve(true);
     }
     

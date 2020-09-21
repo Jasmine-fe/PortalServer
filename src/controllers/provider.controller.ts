@@ -8,11 +8,23 @@ export const uploadImgFile = async (req: any, res: Response, next: NextFunction)
     try {
       await providerService.uploadImgFile(req)
       return res.status(HttpStatus.OK).json({ success: true });
-    } catch (err) {
-      const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
-      return next(error);
-    }
-  };
+  } catch (err) {
+    const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
+    return next(error);
+  }
+};
+
+export const uploadZipFile = async (req: any, res: Response, next: NextFunction) => {
+  const providerService = new ProviderService();
+  try {
+    await providerService.uploadZipFile(req)
+    return res.status(HttpStatus.OK).json({ success: true });
+  } catch (err) {
+    const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
+    return next(error);
+  }
+};
+
 
   export const getImgFile = async (req: any, res: Response, next: NextFunction) => {
     const providerService = new ProviderService();

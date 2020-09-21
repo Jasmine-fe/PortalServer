@@ -10,7 +10,7 @@ import * as multer from 'multer';
 import * as cors from 'cors';
 import { connectDB } from './database'
 import { router } from './routes/index';
-import { uploadImgFile, getImgFile } from './controllers/provider.controller';
+import { uploadImgFile, uploadZipFile } from './controllers/provider.controller';
 import { router as swaggerRouter } from './swagger';
 import { jwt } from './auth/jwt';
 import { errorHandler } from './auth/errorHandler';
@@ -24,8 +24,12 @@ app.use(cors({origin: '*'}))
 app.use(express.static(path.join( __dirname, '/uploads')));
 
 // deal with image file
-const upload = multer({ dest: './src/uploads' })
-app.post('/provider/image', upload.single('image'), uploadImgFile)
+const uploadImg = multer({ dest: './src/uploads' })
+app.post('/provider/image', uploadImg.single('image'), uploadImgFile)
+
+const uploadZip = multer({ dest: './src/uploads' })
+app.post('/provider/zip', uploadZip.single('zip'), uploadImgFile)
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
