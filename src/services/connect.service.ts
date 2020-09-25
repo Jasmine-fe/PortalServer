@@ -29,8 +29,6 @@ import { Gaconnection } from '../entities/Gaconnection';
  *          type: string
  *          description: pid
  */
-
-
 export class ConnectService {
     gaconnectionRepository: Repository<Gaconnection>;
 
@@ -44,7 +42,7 @@ export class ConnectService {
  *   get:
  *     description: get connecting GameServer ip
  *     tags:
- *       - ip
+ *       - connection
  *     produces:
  *       - application/json
  *     consumes:
@@ -73,6 +71,34 @@ export class ConnectService {
         return res;
     }
 
+/**
+ * @swagger
+ * /status:
+ *   post:
+ *     description: update game connect status
+ *     tags:
+ *       - connection
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: login
+ *         description: login info
+ *         schema:
+ *             type: object
+ *             properties:
+ *               ip:
+ *                  type: string
+ *               status:
+ *                  type: string
+ *     responses:
+ *       200:
+ *         description: successfully update game connect status
+ *         schema:
+ *           $ref: '#/definitions/GaConnection'
+ */
     async updateConnectStatus(req): Promise<any> {
         const { ip, status } = req.body;
         console.log("ip",ip, "status", status)
@@ -98,7 +124,7 @@ export class ConnectService {
  *   get:
  *     description: record game server ip
  *     tags:
- *       - ip
+ *       - connection
  *     produces:
  *       - application/json
  *     consumes:
@@ -148,12 +174,4 @@ export class ConnectService {
         return ip;
       }
 
-    
-
-    
-    async endGameConnection(req): Promise<any> {
-        const { } = req.body;
-    
-    }
-       
 }

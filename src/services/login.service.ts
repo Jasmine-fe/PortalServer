@@ -29,7 +29,7 @@ export class LoginService {
         this.loginRepository = getManager().getRepository(Login);
     }
 
-    /**
+ /**
  * @swagger
  * /login:
  *   post:
@@ -72,7 +72,35 @@ export class LoginService {
         }
 
     }
-
+    
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     description: register
+ *     tags:
+ *       - login
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: username
+ *         description: username
+ *     password:
+ *       - in: body
+ *         name: password
+ *         description: password
+ *     responses:
+ *       200:
+ *         description: successfully register and return jwtToken
+ *         schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                  type: string
+ */
     async userRegister(req): Promise<any> {
         const { username, password } = req.body;
 

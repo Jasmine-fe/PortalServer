@@ -12,7 +12,7 @@ import * as fs from 'fs-extra';
  *   Gameslist:
  *     type: object
  *     properties:
- *       id: 
+ *       gameId: 
  *          type: number
  *          description: id
  *       name: 
@@ -36,6 +36,15 @@ import * as fs from 'fs-extra';
  *       configFile:
  *          type: string
  *          description: configFile
+ *       excuteMode:
+ *          type: string
+ *          description: excuteMode
+ *       filename:
+ *          type: string
+ *          description: filename
+ *       imgPath:
+ *          type: string
+ *          description: imgPath
  *   Provider:
  *     type: object
  *     properties:
@@ -142,6 +151,27 @@ export class GameService {
     return Promise.reject(false);
   }
 
+/**
+ * @swagger
+ * /progress/list:
+ *   get:
+ *     description: get progress games list
+ *     tags:
+ *       - game
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: successfully return progress games list
+ *         schema:
+ *           type: object
+ *           items:
+ *             oneOf:
+ *               - $ref: '#/definitions/GaConnection'
+ *               - $ref: '#/definitions/Gameslist'
+ */
   async getProcessingGames(req): Promise<any> {
     const list =  await this.gameslistRepository.find();
     const connectGames = await this.gaConnectionRepository
@@ -157,6 +187,25 @@ export class GameService {
     return  Promise.reject();
   }
 
+
+/**
+ * @swagger
+ * /progress/ip:
+ *   get:
+ *     description: get the progress game ip
+ *     tags:
+ *       - game
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: successfully get the progress game ip
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/GaConnection'
+ */
   async getProcessingGameIp(req): Promise<any> {
     const { gameId } = req.query
     const res = await getManager()
@@ -173,6 +222,37 @@ export class GameService {
     return  Promise.reject();
   }
 
+
+
+  /**
+ * @swagger
+ * /progress/info:
+ *   get:
+ *     description: get the progress game ip
+ *     tags:
+ *       - game
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: query
+ *         name: username
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: successfully get the progress game ip
+ *         schema:
+ *           type: object
+ *           properties:
+ *             game: 
+ *               type: object
+ *               $ref: '#/definitions/GaConnection'
+ *             provider:
+ *               type: object
+ *               $ref: '#/definitions/Gameslist'
+ */
   async getProcessingGameInfo(req): Promise<any> {
     const { username } = req.query;
     const progressingInfo = await this.gaConnectionRepository
@@ -188,5 +268,4 @@ export class GameService {
     }
     return Promise.reject();
   }
-
 }

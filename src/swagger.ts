@@ -18,7 +18,7 @@ const options = {
                 description: 'game API',
             },
             {
-                name: 'ip',
+                name: 'connection',
                 description: 'ip connection API',
             },
             {
