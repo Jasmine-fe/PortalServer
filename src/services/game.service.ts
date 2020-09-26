@@ -30,9 +30,6 @@ import * as fs from 'fs-extra';
  *       lastUpdateTime:
  *          type: string
  *          description: lastUpdateTime
- *       gameId:
- *          type: string
- *          description: gameId
  *       configFile:
  *          type: string
  *          description: configFile
