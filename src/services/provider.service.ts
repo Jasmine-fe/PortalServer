@@ -26,7 +26,7 @@ export class ProviderService {
         const filename = req.file.filename    
         const data = fs.readFileSync("src/uploads/" + filename)
         const res = await this.gameslistRepository
-            .createQueryBuilder("GLR")
+            .createQueryBuilder()
             .update(Gameslist)
             .set({
                 imgPath: req.file.path

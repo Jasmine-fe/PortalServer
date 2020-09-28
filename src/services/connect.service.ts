@@ -91,8 +91,6 @@ export class ConnectService {
  *             properties:
  *               ip:
  *                  type: string
- *               status:
- *                  type: string
  *     responses:
  *       200:
  *         description: successfully update game connect status
@@ -100,18 +98,16 @@ export class ConnectService {
  *           $ref: '#/definitions/GaConnection'
  */
     async updateConnectStatus(req): Promise<any> {
-        const { ip, status } = req.body;
-        console.log("ip",ip, "status", status)
-        // error
+        const { ip: serverIp } = req.body;
+ 
         const res = await this.gaconnectionRepository
-            .createQueryBuilder("GAC")
+            .createQueryBuilder()
             .update(Gaconnection)
-            .set({
-                status: status
-            })
-            .where("status = :status", { status: 'TRUE' })
+            .set({ status: "FALSE" })
+            .where("status = :status AND serverIp = :serverIp", { status: 'TRUE', serverIp })
+            .orderBy("lastUpdateTime", "DESC")
+            .limit(1)
             .execute();
-
             
         return Promise.resolve(true);
     }
@@ -155,8 +151,7 @@ export class ConnectService {
  *               description: ip
  */
     async recordGameServerIp(req): Promise<any> {
-
-        const { username, gamename, ip, status, gameId, pid="" } = req.body;
+        const { username, gamename, ip: serverIp, gameId, pid="" } = req.body;
         this.gaconnectionRepository
         .createQueryBuilder("GSI").insert()
         .into(Gaconnection)
@@ -164,14 +159,14 @@ export class ConnectService {
           username,
           gamename,
           gameId,
-          serverIp: ip,
-          status,
           pid,
-          lastUpdateTime: new Date()+""
+          lastUpdateTime: new Date(),
+          serverIp: serverIp,
+          status: "TRUE",
         }])
         .execute()
 
-        return ip;
-      }
+        return serverIp;
+    }
 
 }
