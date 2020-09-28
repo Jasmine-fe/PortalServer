@@ -98,7 +98,7 @@ export class ConnectService {
  *           $ref: '#/definitions/GaConnection'
  */
     async updateConnectStatus(req): Promise<any> {
-        const { ip: serverIp } = req.body;
+        const { ip: serverIp, pid } = req.body;
  
         const res = await this.gaconnectionRepository
             .createQueryBuilder()
