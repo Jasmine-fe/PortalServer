@@ -92,14 +92,18 @@ export class GameService {
  *           $ref: '#/definitions/Gameslist'
  */
   async getAllGameslist(req): Promise<Gameslist[]> {
+    console.log("getAllGameslist");
     const res = await this.gameslistRepository.find();
     var gamesData: any[] = []
-    await res.forEach(element => {
-      const readFileData = element ? fs.readFileSync(element.imgPath) : "";
-      const image = readFileData ? Buffer.from(readFileData).toString('base64'): "";
-      gamesData.push({ base64Img: image, ...element })
-    });
-    return gamesData;
+    console.log("Res", res);
+    // await res.forEach(element => {
+    //   const readFileData = element ? fs.readFileSync(element.imgPath) : "";
+    //   const image = readFileData ? Buffer.from(readFileData).toString('base64'): "";
+    //   gamesData.push({ base64Img: image, ...element })
+    //   console.log("gamesData", gamesData)
+    // });
+    
+    return res;
   }
 
 
