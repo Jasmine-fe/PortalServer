@@ -4,6 +4,7 @@ import { gameRouter } from './gameRoute'
 import { providerRouter } from './providerRouter'
 import { LoginRouter } from './loginRoute';
 import { connectRouter } from './connectRoute';
+import { configRouter } from './configRoute';
 
 var cors = require('cors')
 var express = require('express');
@@ -17,3 +18,4 @@ router.use('/user', LoginRouter);
 router.use('/connection', connectRouter);
 router.use('/game', gameRouter);
 router.use('/provider', providerRouter);
+router.use('/config', configRouter);
