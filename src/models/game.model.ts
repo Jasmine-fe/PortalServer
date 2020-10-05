@@ -4,7 +4,7 @@ export const gameModel = async (list, connectGames) => {
     await connectGames.forEach(game => {
         list.forEach(ls => {
             if (game.gamename === ls.name) {
-                res.push({ ...game, ...ls })
+                res.push({ ...ls, ...game })
             }
         });
     });
