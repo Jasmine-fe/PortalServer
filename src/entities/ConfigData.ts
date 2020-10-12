@@ -1,4 +1,4 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("config_data", { schema: "gamedb" })
 export class ConfigData {
@@ -16,4 +16,7 @@ export class ConfigData {
 
   @Column("varchar", { name: "new_value", nullable: true, length: 255 })
   newValue: string | null;
+
+  @PrimaryGeneratedColumn({ type: "int", name: "id" })
+  id: number;
 }
