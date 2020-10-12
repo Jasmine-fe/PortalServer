@@ -2,9 +2,6 @@ import { Column, Entity } from "typeorm";
 
 @Entity("config_data", { schema: "gamedb" })
 export class ConfigData {
-  @Column("int", { primary: true, name: "id" })
-  id: number;
-
   @Column("int", { name: "gameid", nullable: true })
   gameid: number | null;
 
