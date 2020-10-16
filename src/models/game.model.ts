@@ -10,3 +10,16 @@ export const gameModel = async (list, connectGames) => {
     });
     return res;
 }
+
+export const gameIdModel = async (list, configData) => {
+
+    const res: any[] = [];
+    await configData.forEach(game => {
+        list.forEach(ls => {
+            if (ls.gameId === game.gameid) {
+                res.push({ ...ls, ...game })
+            }
+        });
+    });
+    return res;
+}

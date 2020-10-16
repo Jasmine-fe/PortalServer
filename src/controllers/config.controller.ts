@@ -13,3 +13,36 @@ export const getConfigTemplate = async (req: Request, res: Response, next: NextF
     return next(error);
   }
 };
+
+export const getConfigData = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const loginService = new ConfigService();
+    const resData = await loginService.getConfigData(req)
+    return res.status(HttpStatus.OK).json({ success: true, data: resData });
+  } catch (err) {
+    const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
+    return next(error);
+  }
+};
+
+export const getConfigDataList = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const loginService = new ConfigService();
+    const resData = await loginService.getConfigDataList(req)
+    return res.status(HttpStatus.OK).json({ success: true, data: resData });
+  } catch (err) {
+    const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
+    return next(error);
+  }
+};
+
+export const recordDataConfig = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const loginService = new ConfigService();
+    const resData = await loginService.recordDataConfig(req)
+    return res.status(HttpStatus.OK).json({ success: true, data: resData });
+  } catch (err) {
+    const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
+    return next(error);
+  }
+};
