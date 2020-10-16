@@ -23,3 +23,28 @@ export const gameIdModel = async (list, configData) => {
     });
     return res;
 }
+
+
+export const configDataModel = async (configData) => {
+
+    const gameList: any[] = [];
+    const resList: any[] = [];
+    const res: any[] = [];
+    await configData.forEach(data => {
+        if (!(gameList.includes(data.gamename))) {
+            gameList.push(data.gamename);
+            resList.push({ gamename: data.gamename, config: [] });
+        }
+    });
+
+    await resList.forEach(async (game) => {
+        await configData.forEach(data => {
+            if (game.gamename == data.gamename) {
+                game.config.push(data);
+            }
+        });
+    });
+
+
+    return resList;
+}

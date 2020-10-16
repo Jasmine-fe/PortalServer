@@ -3,7 +3,7 @@ import { ConfigData } from '../entities/ConfigData';
 import { ConfigTemplate } from '../entities/ConfigTemplate';
 import { Gameslist } from '../entities/Gameslist';
 import { configConvert } from '../models/config.model';
-import { gameIdModel } from '../models/game.model'
+import { gameIdModel, configDataModel } from '../models/game.model'
 
 export class ConfigService {
     configDataRepository: Repository<ConfigData>;
@@ -50,11 +50,11 @@ export class ConfigService {
             .createQueryBuilder("CDR")
             .getMany();
 
-        return Promise.resolve(true);
+        const res = await configDataModel(data);
+        return Promise.resolve(res);
     }
 
     async recordDataConfig(req): Promise<any> {
-        console.log("recordDataConfig req", req.body.gamename)
 
         var insertData : Array<ConfigData> = [];
         const modifyConfigs = req.body.config;
@@ -76,8 +76,7 @@ export class ConfigService {
                 console.log("configDataRepository error", err)
             });
 
-        return Promise.resolve(true);
+        return Promise.resolve(data);
     }
-    
 
 }
