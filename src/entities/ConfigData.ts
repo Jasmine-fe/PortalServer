@@ -19,4 +19,7 @@ export class ConfigData {
 
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
+
+  @Column("varchar", { name: "gamename", nullable: true, length: 45 })
+  gamename: string | null;
 }

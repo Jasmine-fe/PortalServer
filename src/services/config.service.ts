@@ -54,14 +54,16 @@ export class ConfigService {
     }
 
     async recordDataConfig(req): Promise<any> {
-        console.log("recordDataConfig req", req.body)
+        console.log("recordDataConfig req", req.body.gamename)
 
         var insertData : Array<ConfigData> = [];
         const modifyConfigs = req.body.config;
+        const gName = req.body.gamename;
         for(var i = 0 ; i < modifyConfigs.length; i++) {
             const data = new ConfigData();
             data.gAcolumn = modifyConfigs[i]["GAcolumn"];
             data.newValue = modifyConfigs[i]["value"];
+            data.gamename = gName;
             await insertData.push(data);
         }
 
