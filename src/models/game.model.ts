@@ -44,7 +44,5 @@ export const configDataModel = async (configData) => {
             }
         });
     });
-
-
-    return resList;
+    return { list: gameList, config: resList };
 }

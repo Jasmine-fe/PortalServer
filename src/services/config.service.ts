@@ -79,4 +79,21 @@ export class ConfigService {
         return Promise.resolve(data);
     }
 
+    async setDataConfig(req): Promise<any> {
+        const modifyData = req.body.config;
+
+        modifyData.forEach(async (element) => {
+            await this.configDataRepository
+                .createQueryBuilder()
+                .update(ConfigData)
+                .set({
+                    newValue: element.newValue
+                })
+                .where("id = :id", { id: element.id })
+                .execute();
+        });
+        return Promise.resolve(true);
+    }
+
+
 }

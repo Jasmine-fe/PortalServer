@@ -46,3 +46,14 @@ export const recordDataConfig = async (req: Request, res: Response, next: NextFu
     return next(error);
   }
 };
+
+export const setDataConfig = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const loginService = new ConfigService();
+    const resData = await loginService.setDataConfig(req)
+    return res.status(HttpStatus.OK).json({ success: true, data: resData });
+  } catch (err) {
+    const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
+    return next(error);
+  }
+};
