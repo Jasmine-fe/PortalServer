@@ -25,22 +25,12 @@ export const getConfigData = async (req: Request, res: Response, next: NextFunct
   }
 };
 
-export const getConfigDataList = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const loginService = new ConfigService();
-    const resData = await loginService.getConfigDataList(req)
-    return res.status(HttpStatus.OK).json({ success: true, data: resData });
-  } catch (err) {
-    const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
-    return next(error);
-  }
-};
 
 export const recordDataConfig = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const loginService = new ConfigService();
     const resData = await loginService.recordDataConfig(req)
-    return res.status(HttpStatus.OK).json({ success: true, data: resData });
+    return res.status(HttpStatus.OK).json({ success: true });
   } catch (err) {
     const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
     return next(error);
@@ -51,7 +41,7 @@ export const setDataConfig = async (req: Request, res: Response, next: NextFunct
   try {
     const loginService = new ConfigService();
     const resData = await loginService.setDataConfig(req)
-    return res.status(HttpStatus.OK).json({ success: true, data: resData });
+    return res.status(HttpStatus.OK).json({ success: true });
   } catch (err) {
     const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
     return next(error);

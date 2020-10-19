@@ -5,6 +5,34 @@ import { Gameslist } from '../entities/Gameslist';
 import { configConvert } from '../models/config.model';
 import { gameIdModel, configDataModel } from '../models/game.model'
 
+/**
+ * @swagger
+ * definitions:
+ *   ConfigData:
+ *     type: object
+ *     properties:
+ *       gameid: 
+ *          type: number
+ *          description: id
+ *       dictionary: 
+ *          type: string
+ *          description: dictionary
+ *       gAcolumn:
+ *          type: string
+ *          description: gAcolumn
+ *       defaultValue: 
+ *          type: string
+ *          description: defaultValue
+ *       newValue: 
+ *          type: string
+ *          description: newValue
+ *       id:
+ *          type: number
+ *          description: id
+ *       gamename:
+ *          type: string
+ *          description: gamename
+ */
 export class ConfigService {
     configDataRepository: Repository<ConfigData>;
     configTemplateRepository: Repository<ConfigTemplate>;
@@ -15,6 +43,21 @@ export class ConfigService {
         this.configTemplateRepository = getManager().getRepository(ConfigTemplate);
     }
 
+/**
+* @swagger
+* /config/template:
+*   get:
+*     description: get config template
+*     tags:
+*       - config
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     responses:
+*       200:
+*         description: successfully getConfigTemplate
+*/
     async getConfigTemplate(req): Promise<any> {
         const dictionaries = [
             { "[core]": [] },
@@ -32,19 +75,21 @@ export class ConfigService {
         return Promise.resolve(res);
     }
 
-    async getConfigDataList(req): Promise<any> {
-        console.log("getConfigDataList")
-        const list =  await this.gameslistRepository.find();
-        const configData = await this.configDataRepository
-            .createQueryBuilder("CDR")
-            .getMany();
-        console.log("list", list)
-        console.log("configData", configData)
-        const res = await gameIdModel(list, configData);
-        console.log("res", res);
-        return Promise.resolve(res);
-    }
-
+/**
+* @swagger
+* /config/data:
+*   get:
+*     description: get config dataList
+*     tags:
+*       - config
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     responses:
+*       200:
+*         description: successfully getConfigTemplate
+*/
     async getConfigData(req): Promise<any> {
         const data = await this.configDataRepository
             .createQueryBuilder("CDR")
@@ -54,6 +99,32 @@ export class ConfigService {
         return Promise.resolve(res);
     }
 
+/**
+* @swagger
+* /config/data/new:
+*   post:
+*     description: get config dataList
+*     tags:
+*       - config
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     parameters:
+*       - in: body
+*         name: config
+*         description: setDataConfig
+*         schema:
+*             type: object
+*     responses:
+*       200:
+*         description: successfully recordDataConfig
+*         schema:
+*             type: object
+*             properties:
+*               success:
+*                  type: string
+*/
     async recordDataConfig(req): Promise<any> {
 
         var insertData : Array<ConfigData> = [];
@@ -79,9 +150,34 @@ export class ConfigService {
         return Promise.resolve(data);
     }
 
+/**
+* @swagger
+* /config/data/modify:
+*   post:
+*     description: get config dataList
+*     tags:
+*       - config
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     parameters:
+*       - in: body
+*         name: config
+*         description: setDataConfig
+*         schema:
+*             type: object
+*     responses:
+*       200:
+*         description: successfully setDataConfig
+*         schema:
+*             type: object
+*             properties:
+*               success:
+*                  type: string
+*/
     async setDataConfig(req): Promise<any> {
         const modifyData = req.body.config;
-
         modifyData.forEach(async (element) => {
             await this.configDataRepository
                 .createQueryBuilder()

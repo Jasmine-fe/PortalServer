@@ -15,7 +15,7 @@ export class ProviderService {
  *   post:
  *     description: upload image data
  *     tags:
- *       - provider
+ *       - image
  *     produces:
  *       - application/json
  *     consumes:
@@ -50,7 +50,7 @@ export class ProviderService {
  *   get:
  *     description: get image
  *     tags:
- *       - provider
+ *       - image
  *     produces:
  *       - application/json
  *     consumes:

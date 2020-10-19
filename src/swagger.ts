@@ -25,6 +25,14 @@ const options = {
                 name: 'login',
                 description: 'login API',
             },
+            {
+                name: 'config',
+                description: 'config API',
+            },
+            {
+                name: 'image',
+                description: 'image API',
+            },
         ],
         schemes: ['http'],
         host: 'localhost:3000',
