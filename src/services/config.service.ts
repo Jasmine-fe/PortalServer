@@ -132,8 +132,10 @@ export class ConfigService {
         const gName = req.body.gamename;
         for(var i = 0 ; i < modifyConfigs.length; i++) {
             const data = new ConfigData();
-            data.gAcolumn = modifyConfigs[i]["GAcolumn"];
-            data.newValue = modifyConfigs[i]["value"];
+            data.gAcolumn = modifyConfigs[i]["gAcolumn"];
+            data.dictionary = modifyConfigs[i]["dictionary"];
+            data.defaultValue = modifyConfigs[i]["defaultValue"];
+            data.newValue = modifyConfigs[i]["newValue"];
             data.gamename = gName;
             await insertData.push(data);
         }
@@ -141,10 +143,10 @@ export class ConfigService {
         const data = await this.configDataRepository
             .save(insertData)
             .then(res => {
-                console.log("configDataRepository res", res)
+                console.log("configDataRepository insert successfully")
             })
             .catch(err => {
-                console.log("configDataRepository error", err)
+                console.log("configDataRepository insert error")
             });
 
         return Promise.resolve(data);
@@ -177,6 +179,7 @@ export class ConfigService {
 *                  type: string
 */
     async setDataConfig(req): Promise<any> {
+        console.log("setDataConfig", req.body);
         const modifyData = req.body.config;
         modifyData.forEach(async (element) => {
             await this.configDataRepository
