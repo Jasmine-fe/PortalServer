@@ -22,4 +22,7 @@ export class ConfigData {
 
   @Column("varchar", { name: "gamename", nullable: true, length: 45 })
   gamename: string | null;
+
+  @Column("int", { name: "columnId", nullable: true })
+  columnId: number | null;
 }

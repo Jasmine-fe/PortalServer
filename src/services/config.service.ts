@@ -1,9 +1,9 @@
 import { getManager, Repository, Any } from 'typeorm';
-import { ConfigData } from '../entities/ConfigData';
 import { ConfigTemplate } from '../entities/ConfigTemplate';
 import { Gameslist } from '../entities/Gameslist';
 import { configConvert } from '../models/config.model';
 import { gameIdModel, configDataModel } from '../models/game.model'
+import { ConfigData } from '../entities/ConfigData';
 
 /**
  * @swagger
@@ -32,6 +32,9 @@ import { gameIdModel, configDataModel } from '../models/game.model'
  *       gamename:
  *          type: string
  *          description: gamename
+ *       columnId:
+ *          type: int
+ *          description: columnId
  */
 export class ConfigService {
     configDataRepository: Repository<ConfigData>;
@@ -127,15 +130,16 @@ export class ConfigService {
 */
     async recordDataConfig(req): Promise<any> {
 
-        var insertData : Array<ConfigData> = [];
+        var insertData: Array<ConfigData> = [];
         const modifyConfigs = req.body.config;
         const gName = req.body.gamename;
-        for(var i = 0 ; i < modifyConfigs.length; i++) {
+        for (var i = 0; i < modifyConfigs.length; i++) {
             const data = new ConfigData();
             data.gAcolumn = modifyConfigs[i]["gAcolumn"];
             data.dictionary = modifyConfigs[i]["dictionary"];
             data.defaultValue = modifyConfigs[i]["defaultValue"];
             data.newValue = modifyConfigs[i]["newValue"];
+            data.columnId = modifyConfigs[i]["columnId"];
             data.gamename = gName;
             await insertData.push(data);
         }
@@ -179,17 +183,47 @@ export class ConfigService {
 *                  type: string
 */
     async setDataConfig(req): Promise<any> {
-        console.log("setDataConfig", req.body);
+        
         const modifyData = req.body.config;
+        console.log("req.body.gamename", req.body.gamename);
+        
         modifyData.forEach(async (element) => {
+            console.log("element.columnId ", element.columnId );
             await this.configDataRepository
                 .createQueryBuilder()
                 .update(ConfigData)
                 .set({
                     newValue: element.newValue
                 })
-                .where("id = :id", { id: element.id })
-                .execute();
+                .where("columnId = :columnId", { columnId: element.columnId })
+                .andWhere("gamename = :gamename", { gamename: req.body.gamename })
+                .execute()
+                .then(async (res: any) => {
+                    const affectedCount = res.affected;
+                    if (affectedCount < 1) {
+                        const insertData = new ConfigData();
+                        insertData.gAcolumn = element.gAcolumn
+                        insertData.dictionary = element.dictionary
+                        insertData.defaultValue = element.defaultValue
+                        insertData.newValue = element.newValue
+                        insertData.columnId = element.columnId
+                        insertData.gamename = req.body.gamename
+                        const data = await this.configDataRepository
+                            .save(insertData)
+                            .then(res => {
+                                console.log("configDataRepository insert successfully")
+                            })
+                            .catch(err => {
+                                console.log("configDataRepository insert error")
+                            });
+
+                        return Promise.resolve(data);
+                    }
+                    else {
+                        Promise.resolve(res);
+                    }
+
+                })
         });
         return Promise.resolve(true);
     }
