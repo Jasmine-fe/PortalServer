@@ -46,3 +46,23 @@ export const configDataModel = async (configData) => {
     });
     return { list: gameList, config: resList };
 }
+
+export const optionModel = async (optionList) => {
+    const res: any[] = [];
+    var count = -1;
+    await optionList.forEach(option => {
+        if (count >= 0 && res[count].gAcolumn == option.gAcolumn) {
+            res[count].value.push(option.oPvalue);
+        } else {
+            count++;
+            res.push({
+                gAcolumn: option.gAcolumn,
+                dictionary: option.dictionary,
+                value: []
+            })
+            res[count].value.push(option.oPvalue);
+        }
+    });
+    console.log("Res", res)
+    return res;
+}

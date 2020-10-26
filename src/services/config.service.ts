@@ -2,9 +2,9 @@ import { getManager, Repository, Any } from 'typeorm';
 import { ConfigTemplate } from '../entities/ConfigTemplate';
 import { Gameslist } from '../entities/Gameslist';
 import { configConvert } from '../models/config.model';
-import { gameIdModel, configDataModel } from '../models/game.model'
+import { gameIdModel, optionModel, configDataModel } from '../models/game.model'
 import { ConfigData } from '../entities/ConfigData';
-
+import { ConfigOption } from '../entities/ConfigOption';
 /**
  * @swagger
  * definitions:
@@ -38,12 +38,14 @@ import { ConfigData } from '../entities/ConfigData';
  */
 export class ConfigService {
     configDataRepository: Repository<ConfigData>;
+    configOptionRepository: Repository<ConfigOption>;
     configTemplateRepository: Repository<ConfigTemplate>;
     gameslistRepository: Repository<Gameslist>;
 
     constructor() {
         this.configDataRepository = getManager().getRepository(ConfigData);
         this.configTemplateRepository = getManager().getRepository(ConfigTemplate);
+        this.configOptionRepository = getManager().getRepository(ConfigOption);
     }
 
 /**
@@ -97,10 +99,21 @@ export class ConfigService {
         const data = await this.configDataRepository
             .createQueryBuilder("CDR")
             .getMany();
-
         const res = await configDataModel(data);
         return Promise.resolve(res);
     }
+
+
+    // add code here
+    async getOptionData(req): Promise<any> {
+        const options = await this.configOptionRepository
+            .createQueryBuilder("COR")
+            .getMany();
+
+        const res = await optionModel(options);
+        return Promise.resolve(res);
+    }
+
 
 /**
 * @swagger

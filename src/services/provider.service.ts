@@ -83,11 +83,11 @@ export class ProviderService {
 
 /**
  * @swagger
- * /login:
+ * /game:
  *   post:
  *     description: create new game
  *     tags:
- *       - login
+ *       - config
  *     produces:
  *       - application/json
  *     consumes:

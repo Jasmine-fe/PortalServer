@@ -5,8 +5,8 @@ import * as HttpStatus from 'http-status-codes';
 
 export const getConfigTemplate = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const loginService = new ConfigService();
-    const resData = await loginService.getConfigTemplate(req)
+    const configService = new ConfigService();
+    const resData = await configService.getConfigTemplate(req)
     return res.status(HttpStatus.OK).json({ success: true, data: resData });
   } catch (err) {
     const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
@@ -16,8 +16,8 @@ export const getConfigTemplate = async (req: Request, res: Response, next: NextF
 
 export const getConfigData = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const loginService = new ConfigService();
-    const resData = await loginService.getConfigData(req)
+    const configService = new ConfigService();
+    const resData = await configService.getConfigData(req)
     return res.status(HttpStatus.OK).json({ success: true, data: resData });
   } catch (err) {
     const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
@@ -28,8 +28,8 @@ export const getConfigData = async (req: Request, res: Response, next: NextFunct
 
 export const recordDataConfig = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const loginService = new ConfigService();
-    const resData = await loginService.recordDataConfig(req)
+    const configService = new ConfigService();
+    const resData = await configService.recordDataConfig(req)
     return res.status(HttpStatus.OK).json({ success: true });
   } catch (err) {
     const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
@@ -39,9 +39,20 @@ export const recordDataConfig = async (req: Request, res: Response, next: NextFu
 
 export const setDataConfig = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const loginService = new ConfigService();
-    const resData = await loginService.setDataConfig(req)
+    const configService = new ConfigService();
+    const resData = await configService.setDataConfig(req)
     return res.status(HttpStatus.OK).json({ success: true });
+  } catch (err) {
+    const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
+    return next(error);
+  }
+};
+
+export const getOptionData = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const configService = new ConfigService();
+    const resData = await configService.getOptionData(req)
+    return res.status(HttpStatus.OK).json({ success: true, data: resData });
   } catch (err) {
     const error: ApiResponseError = { code: HttpStatus.BAD_REQUEST, errorObj: err };
     return next(error);

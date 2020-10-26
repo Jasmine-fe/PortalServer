@@ -31,7 +31,7 @@ export class LoginService {
 
  /**
  * @swagger
- * /login:
+ * /user/login:
  *   post:
  *     description: userLoginJWT
  *     tags:
@@ -75,7 +75,7 @@ export class LoginService {
     
 /**
  * @swagger
- * /register:
+ * /user/register:
  *   post:
  *     description: register
  *     tags:
@@ -86,12 +86,15 @@ export class LoginService {
  *       - application/json
  *     parameters:
  *       - in: body
- *         name: username
- *         description: username
- *     password:
- *       - in: body
- *         name: password
- *         description: password
+ *         name: register info
+ *         description: register info
+ *         schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                  type: string
+ *               password:
+ *                  type: string
  *     responses:
  *       200:
  *         description: successfully register and return jwtToken

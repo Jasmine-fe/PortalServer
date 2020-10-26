@@ -38,7 +38,7 @@ export class ConnectService {
 
  /**
  * @swagger
- * /ip:
+ * /connection:
  *   get:
  *     description: get connecting GameServer ip
  *     tags:
@@ -73,7 +73,7 @@ export class ConnectService {
 
 /**
  * @swagger
- * /status:
+ * /connection/status:
  *   post:
  *     description: update game connect status
  *     tags:
@@ -90,6 +90,8 @@ export class ConnectService {
  *             type: object
  *             properties:
  *               ip:
+ *                  type: string
+ *               pid:
  *                  type: string
  *     responses:
  *       200:
@@ -116,8 +118,8 @@ export class ConnectService {
 
     /**
  * @swagger
- * /ip/serverip:
- *   get:
+ * /connection/recordip:
+ *   post:
  *     description: record game server ip
  *     tags:
  *       - connection
@@ -134,9 +136,11 @@ export class ConnectService {
  *             properties:
  *               username:
  *                  type: string
+ *               gamename:
+ *                  type: string
  *               ip:
  *                  type: string
- *               status:
+ *               gameId:
  *                  type: string
  *               pid:
  *                  type: string
