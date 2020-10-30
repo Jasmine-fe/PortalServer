@@ -2,7 +2,7 @@ import { getManager, Repository, Any } from 'typeorm';
 import { ConfigTemplate } from '../entities/ConfigTemplate';
 import { Gameslist } from '../entities/Gameslist';
 import { configConvert } from '../models/config.model';
-import { gameIdModel, optionModel, configDataModel } from '../models/game.model'
+import { optionModel, configDataModel } from '../models/game.model'
 import { ConfigData } from '../entities/ConfigData';
 import { ConfigOption } from '../entities/ConfigOption';
 /**
