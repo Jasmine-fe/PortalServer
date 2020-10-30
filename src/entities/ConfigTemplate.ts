@@ -16,4 +16,7 @@ export class ConfigTemplate {
 
   @Column("varchar", { name: "inpath", nullable: true, length: 255 })
   inpath: string | null;
+
+  @Column("tinyint", { name: "option", nullable: true })
+  option: number | null;
 }

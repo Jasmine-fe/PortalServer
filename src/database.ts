@@ -4,7 +4,7 @@ import { createConnection } from 'typeorm';
 export const connectDB = async () => {
   await createConnection({
     type: "mysql",
-    host: "192.168.43.196",
+    host: "192.168.43.205",
     port: 3306,
     username: "kitty",
     password: "pink",
