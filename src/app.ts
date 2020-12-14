@@ -58,7 +58,7 @@ const wss = new WebSocket.Server({ server });
 const port: number = Number(process.env.PORT) || 3000;
 const ip: string = process.env.IP || "0.0.0.0";
 const startServer = async () => {
-  await server.listen(port, ip, () => {
+  await server.listen(port, () => {
     console.log(` Server running on http://${ip}:${port}`);
   });
 };
